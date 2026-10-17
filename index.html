@@ -1,0 +1,449 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Nut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&display=swap">
+<style>
+/* Layout: Ayush's sketch of Nut stands on the navy page; Nut talks in a pencil speech bubble; a ruled notebook page holds the tasks. Single deliberate theme taken from the sketch. */
+:root{
+  --navy:#253c65; --navy-dk:#1b2d4e; --navy-lt:#34508a;
+  --paper:#f6f1e4; --paper-line:#c9d4e6; --margin:#d9837b;
+  --ink:#24324f; --pencil:#5d6478; --gold:#d9a35a; --gold-lt:#efcf95; --tongue:#e59aa6;
+  --hand:"Caveat", "Segoe Print", "Bradley Hand", cursive;
+  --body:"Kalam", "Segoe Print", "Comic Neue", cursive;
+  color-scheme: dark;
+}
+*{box-sizing:border-box}
+html,body{background:var(--navy)}
+body{color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.45}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:18px 28px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:860px){.wrap{grid-template-columns:1fr;gap:12px}}
+
+/* ---- Nut's side ---- */
+.stage{position:relative;min-width:0;display:flex;flex-direction:column;gap:12px}
+.name{font-family:var(--hand);font-weight:700;font-size:3.6rem;line-height:.8;margin:4px 0 0;color:var(--gold-lt);letter-spacing:.01em}
+.name small{display:inline-block;font-size:1.35rem;font-weight:500;color:#c9d4e6;margin-left:12px;letter-spacing:.02em}
+.yard{position:relative;height:clamp(400px,62vh,580px);overflow:hidden;border-bottom:0}
+.ground{position:absolute;left:0;right:0;bottom:6px;height:22px;pointer-events:none}
+.bubble{position:absolute;top:8px;left:0;width:min(360px,calc(100% - 8px));z-index:3;background:var(--paper);color:var(--ink);padding:12px 18px 12px;border:2.5px solid var(--ink);
+  border-radius:255px 18px 225px 18px/18px 225px 18px 255px;font-size:1.08rem;line-height:1.35;box-shadow:4px 5px 0 var(--navy-dk);transition:left var(--move,0s) linear}
+.bubble::after{content:"";position:absolute;left:var(--tip,50%);bottom:-20px;width:24px;height:22px;background:var(--paper);border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateX(-50%) skewX(-28deg) rotate(8deg);border-bottom-right-radius:14px}
+.bubble .said{font-family:var(--hand);font-size:1rem;color:var(--pencil);display:block;margin-bottom:2px}
+.bubble .line{white-space:pre-wrap;overflow-wrap:anywhere}
+.bubble.wiggle{animation:wig .5s ease}
+@keyframes wig{25%{transform:rotate(-1.2deg)}75%{transform:rotate(1deg)}}
+.nut{position:absolute;bottom:14px;left:0;height:64%;aspect-ratio:600/952;z-index:2;transition:left var(--move,0s) linear;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nut .shadow{position:absolute;left:14%;right:2%;bottom:-10px;height:22px;border-radius:50%;background:radial-gradient(closest-side,#0b1528aa,#0b152800)}
+.gait{position:absolute;inset:0;transform-origin:55% 100%}
+.walking .gait{animation:trot .42s ease-in-out infinite}
+@keyframes trot{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-5%) rotate(-2deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-5%) rotate(2deg)}}
+.hop .gait{animation:hop .55s ease 2}
+@keyframes hop{50%{transform:translateY(-12%)}}
+.face{position:absolute;inset:0;transition:transform .45s ease}
+.flip .face{transform:scaleX(-1)}
+.face img{position:absolute;left:0;top:0;width:100%;height:auto;user-select:none;-webkit-user-drag:none;pointer-events:none}
+.body{transform-origin:55% 100%;animation:breathe 3.6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scaleY(1.012) scaleX(1.004)}}
+.head{transform-origin:63% 88%;transition:transform .6s ease}
+.head.tilt-l{transform:rotate(-7deg)}
+.head.tilt-r{transform:rotate(6deg)}
+.head.yawning{transform:rotate(-4deg) translateY(-2%)}
+.tail{left:78.2%!important;top:77.8%!important;width:47%!important;transform-origin:8% 84%;animation:wag 1.1s ease-in-out infinite}
+.excited .tail{animation-duration:.28s}
+.sleepy .tail{animation-duration:2.6s}
+@keyframes wag{0%,100%{transform:rotate(-20deg)}50%{transform:rotate(14deg)}}
+.stamp{position:absolute;z-index:4;font-family:var(--hand);font-weight:700;font-size:2.2rem;color:var(--gold-lt);pointer-events:none;animation:up 1.4s ease-out forwards}
+@keyframes up{to{transform:translateY(-90px) rotate(-8deg);opacity:0}}
+@media (prefers-reduced-motion:reduce){.walking .gait,.hop .gait,.stamp,.bubble.wiggle,.body{animation:none}.tail{animation-duration:2s}.nut,.bubble{transition:none}}
+.talk{display:flex;gap:8px}
+.talk input{flex:1;min-width:0;font:inherit;font-size:1.05rem;background:transparent;color:var(--paper);border:0;border-bottom:2px dashed #8fa3c8;padding:6px 2px}
+.talk input::placeholder{color:#9fb0d0}
+.btn{font-family:var(--hand);font-weight:700;font-size:1.35rem;line-height:1;background:var(--gold);color:var(--navy-dk);border:2px solid var(--navy-dk);padding:6px 16px 8px;cursor:pointer;
+  border-radius:15px 225px 15px 255px/255px 15px 225px 15px;box-shadow:3px 3px 0 var(--navy-dk)}
+.btn:hover{background:var(--gold-lt)}
+.btn:disabled{opacity:.55;cursor:default}
+.hint{font-family:var(--hand);font-size:1.05rem;color:#9fb0d0;margin:0}
+:focus-visible{outline:3px solid var(--gold-lt);outline-offset:3px}
+
+/* ---- Notebook ---- */
+.book{position:relative;min-width:0;background:var(--paper);color:var(--ink);padding:26px 22px 22px 58px;box-shadow:6px 8px 0 var(--navy-dk);
+  border-radius:3px 6px 4px 8px;transform:rotate(.6deg);
+  background-image:linear-gradient(90deg,transparent 42px,var(--margin) 42px,var(--margin) 44px,transparent 44px),
+    repeating-linear-gradient(var(--paper) 0 33px,var(--paper-line) 33px 34px);
+  background-position:0 0,0 18px}
+@media (max-width:860px){.book{transform:none}}
+.book::before{content:"";position:absolute;top:-12px;left:46%;width:110px;height:28px;background:#e8dcb8cc;transform:rotate(-3deg);box-shadow:0 1px 2px #0002}
+.book h2{font-family:var(--hand);font-weight:700;font-size:2.3rem;line-height:1;margin:0 0 4px}
+.tally{font-family:var(--hand);font-size:1.2rem;color:var(--pencil);margin:0 0 12px}
+.tally b{color:var(--ink)}
+.add{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:end;margin-bottom:14px}
+@media (max-width:480px){.add{grid-template-columns:1fr auto}.add .when{grid-column:1/-1;order:3}}
+.add input{font:inherit;font-size:1.05rem;color:var(--ink);background:transparent;border:0;border-bottom:2px solid var(--pencil);padding:4px 2px;min-width:0}
+.add input[type="datetime-local"]{font-size:.9rem;color:var(--pencil);color-scheme:light}
+.when{display:flex;flex-direction:column;font-family:var(--hand);font-size:1rem;color:var(--pencil)}
+.add .btn{box-shadow:2px 2px 0 var(--ink);border-color:var(--ink)}
+.list{list-style:none;margin:0;padding:0}
+.task{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:start;gap:8px;min-height:34px;padding:2px 0}
+.check{appearance:none;width:24px;height:24px;margin:4px 0 0;border:2.2px solid var(--ink);border-radius:4px 7px 5px 6px;background:transparent;cursor:pointer;position:relative}
+.check:checked::after{content:"";position:absolute;left:5px;top:-5px;width:9px;height:18px;border:solid var(--margin);border-width:0 3.5px 3.5px 0;transform:rotate(42deg)}
+.ttext{overflow-wrap:anywhere;font-size:1.1rem;line-height:1.5}
+.task.done .ttext{text-decoration:line-through;text-decoration-color:var(--margin);text-decoration-thickness:2px;color:var(--pencil)}
+.due{display:block;font-family:var(--hand);font-size:1.05rem;color:var(--pencil);line-height:1}
+.task.late .due{color:#b8463c;font-weight:700}
+.del{font-family:var(--hand);font-size:1.4rem;background:none;border:0;color:var(--pencil);cursor:pointer;line-height:1;padding:2px 4px}
+.del:hover{color:#b8463c}
+.empty{font-family:var(--hand);font-size:1.3rem;color:var(--pencil);padding:6px 0}
+.foot{margin-top:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--hand);font-size:1.05rem;color:var(--pencil)}
+.foot button{font:inherit;background:none;border:0;color:var(--pencil);text-decoration:underline;cursor:pointer;padding:0}
+</style>
+
+<main class="wrap">
+  <section class="stage" aria-label="Nut">
+    <h1 class="name">Nut <small>Ayush's dog. Keeper of tasks.</small></h1>
+    <div class="yard" id="yard">
+      <div class="bubble" id="bubble" aria-live="polite">
+        <span class="said" id="said" hidden></span>
+        <span class="line" id="line">Ayush! Ayush is here! Happy happy happy.</span>
+      </div>
+      <svg class="ground" viewBox="0 0 800 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 C80 9 140 15 230 11 S390 8 470 13 S640 10 800 12" fill="none" stroke="#8fa3c8" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 0"/><path d="M60 17 l18 -1 M300 18 l26 -1 M560 17 l20 0" stroke="#8fa3c8" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
+      <div class="nut" id="nut" role="button" tabindex="0" aria-label="Pet Nut">
+        <div class="shadow"></div>
+        <div class="gait"><div class="face" id="face">
+          <img class="tail" src="tail.webp" alt="">
+          <img class="body" src="body.webp" alt="">
+          <img class="head" id="head" src="head.webp" alt="">
+        </div></div>
+      </div>
+    </div>
+    <form class="talk" id="talkForm">
+      <input id="talk" autocomplete="off" maxlength="400" placeholder="Say something to Nut… (try: remind me to study at 6pm)">
+      <button class="btn" id="talkBtn">Tell</button>
+    </form>
+    <p class="hint" id="hint">Nut can add, tick off and remind you about tasks when you ask him.</p>
+  </section>
+
+  <section class="book" aria-label="Task notebook">
+    <h2>Ayush's tasks</h2>
+    <p class="tally" id="tally"></p>
+    <form class="add" id="addForm">
+      <input id="newTask" autocomplete="off" maxlength="160" placeholder="New task…" aria-label="New task">
+      <label class="when">remind at<input id="newDue" type="datetime-local" aria-label="Remind at (optional)"></label>
+      <button class="btn">Add</button>
+    </form>
+    <ul class="list" id="list"></ul>
+    <div class="foot"><span id="saved">Saved in this browser</span><button id="clearDone" type="button">Clear finished tasks</button></div>
+  </section>
+</main>
+
+<script>
+const $ = id => document.getElementById(id);
+const pick = a => a[Math.floor(Math.random() * a.length)];
+const uid = () => Math.random().toString(36).slice(2, 9);
+const LKEY = "nut-tasks-v2";
+
+function seed(){
+  const inHour = new Date(Date.now() + 3600e3);
+  return { tasks: [
+    { id: uid(), text: "Take Nut for an evening walk (example)", due: toLocal(inHour), done: false, reminded: false },
+    { id: uid(), text: "Finish homework (example)", due: null, done: false, reminded: false }
+  ], chat: [] };
+}
+function toLocal(d){ const p = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; }
+function fmtDue(s){
+  const d = new Date(s); if (isNaN(d)) return "";
+  const now = new Date(), tm = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
+  const day = d.toDateString() === now.toDateString() ? "today" :
+    d.toDateString() === new Date(Date.now() + 864e5).toDateString() ? "tomorrow" :
+    d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" });
+  return `${day}, ${tm}`;
+}
+const isLate = t => !t.done && t.due && new Date(t.due) < new Date();
+
+let S;
+try { S = JSON.parse(localStorage.getItem(LKEY)); } catch { S = null; }
+if (!S || !Array.isArray(S.tasks)) S = seed();
+if (!Array.isArray(S.chat)) S.chat = [];
+
+// ---- saving: browser always, plus Ayush's private store when available ----
+let docRef = null, saveTimer = null, writing = Promise.resolve();
+function save(){
+  try { localStorage.setItem(LKEY, JSON.stringify(S)); } catch {}
+  if (!docRef) return;
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => {
+    const snap = JSON.parse(JSON.stringify({ tasks: S.tasks, chat: S.chat.slice(-16), updated: new Date().toISOString() }));
+    writing = writing.then(() => docRef.set(snap)).then(() => { $("saved").textContent = "Saved to your account"; })
+      .catch(() => { $("saved").textContent = "Saved in this browser"; });
+  }, 700);
+}
+
+// ---- rendering ----
+function render(){
+  const list = $("list"); list.innerHTML = "";
+  const order = [...S.tasks].sort((a, b) => (a.done - b.done) || ((a.due ? new Date(a.due) : Infinity) - (b.due ? new Date(b.due) : Infinity)));
+  if (!order.length){ const li = document.createElement("li"); li.className = "empty"; li.textContent = "No tasks. Nut is bored bored bored."; list.append(li); }
+  for (const t of order){
+    const li = document.createElement("li");
+    li.className = "task" + (t.done ? " done" : "") + (isLate(t) ? " late" : "");
+    const cb = document.createElement("input"); cb.type = "checkbox"; cb.className = "check"; cb.checked = t.done; cb.id = "t_" + t.id;
+    cb.setAttribute("aria-label", "Done: " + t.text);
+    cb.addEventListener("change", () => setDone(t.id, cb.checked, true));
+    const txt = document.createElement("label"); txt.htmlFor = cb.id;
+    const s = document.createElement("span"); s.className = "ttext"; s.textContent = t.text; txt.append(s);
+    if (t.due){ const d = document.createElement("span"); d.className = "due"; d.textContent = (isLate(t) ? "late! was " : "") + fmtDue(t.due); txt.append(d); }
+    const del = document.createElement("button"); del.className = "del"; del.type = "button"; del.textContent = "×"; del.setAttribute("aria-label", "Remove " + t.text);
+    del.addEventListener("click", () => { S.tasks = S.tasks.filter(x => x.id !== t.id); render(); save(); });
+    li.append(cb, txt, del); list.append(li);
+  }
+  const open = S.tasks.filter(t => !t.done).length, late = S.tasks.filter(isLate).length, done = S.tasks.filter(t => t.done).length;
+  $("tally").innerHTML = `<b>${open}</b> to do · <b>${done}</b> done` + (late ? ` · <b style="color:#b8463c">${late}</b> late` : "");
+}
+// ---- Nut comes alive: roaming, tail, blinking, yawning ----
+const yard = $("yard"), nut = $("nut"), bubble = $("bubble"), head = $("head");
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HEADS = { open: "head.webp", blink: "head_blink.webp", yawn: "head_yawn.webp" };
+Object.values(HEADS).forEach(src => { const i = new Image(); i.src = src; });
+let x = 0, flipped = false, walkT = null, yawning = false, lastImportant = 0, excitedT = null;
+const nutW = () => nut.offsetWidth;
+const maxX = () => Math.max(0, yard.clientWidth - nutW() * 1.25);
+function placeBubble(){
+  const W = yard.clientWidth, bw = bubble.offsetWidth;
+  const faceX = x + nutW() * (flipped ? 0.36 : 0.64);
+  const left = Math.max(4, Math.min(W - bw - 4, faceX - bw / 2));
+  bubble.style.left = left + "px";
+  bubble.style.setProperty("--tip", Math.max(26, Math.min(bw - 26, faceX - left)) + "px");
+  const nutTop = yard.clientHeight - 14 - nut.offsetHeight;
+  bubble.style.top = Math.max(4, nutTop - bubble.offsetHeight - 14) + "px";
+}
+function setMove(sec){ nut.style.setProperty("--move", sec + "s"); bubble.style.setProperty("--move", sec + "s"); }
+function moveTo(nx, speed = 120){
+  nx = Math.max(0, Math.min(maxX(), nx));
+  const dist = Math.abs(nx - x); if (dist < 12 || yawning) return;
+  const dur = dist / speed;
+  flipped = nx < x; nut.classList.toggle("flip", flipped);
+  setMove(dur); nut.classList.add("walking");
+  x = nx; nut.style.left = x + "px"; placeBubble();
+  clearTimeout(walkT);
+  walkT = setTimeout(() => { nut.classList.remove("walking"); setMove(0); }, dur * 1000);
+}
+function wander(){
+  if (!reduce && !document.hidden && !yawning && Math.random() < 0.7){
+    // sometimes a short sniff-step, sometimes a long trot
+    const nx = Math.random() < 0.4 ? x + (Math.random() < .5 ? -1 : 1) * (40 + Math.random() * 80) : Math.random() * maxX();
+    moveTo(nx, 90 + Math.random() * 70);
+  }
+  setTimeout(wander, 3500 + Math.random() * 6500);
+}
+function blink(){
+  if (!yawning){ head.src = HEADS.blink; setTimeout(() => { if (!yawning) head.src = HEADS.open; }, 150); }
+  setTimeout(blink, 2200 + Math.random() * 4500);
+}
+function tilt(){
+  if (!yawning && !reduce){
+    const c = Math.random() < .5 ? "tilt-l" : "tilt-r";
+    head.classList.add(c); setTimeout(() => head.classList.remove(c), 1400 + Math.random() * 900);
+  }
+  setTimeout(tilt, 7000 + Math.random() * 9000);
+}
+function yawn(){
+  if (!document.hidden && !nut.classList.contains("walking")){
+    yawning = true; nut.classList.add("sleepy");
+    head.src = HEADS.blink;
+    setTimeout(() => { head.src = HEADS.yawn; head.classList.add("yawning"); }, 250);
+    setTimeout(() => { head.classList.remove("yawning"); head.src = HEADS.blink; }, 2300);
+    setTimeout(() => { head.src = HEADS.open; yawning = false; nut.classList.remove("sleepy"); }, 2600);
+    if (Date.now() - lastImportant > 25000 && Math.random() < 0.45)
+      setTimeout(() => say(pick(["*yaaawn* Nut sleepy sleepy. But Nut still watch task. Always.",
+        "*big yawn* Nap soon, question? After Ayush finish task.", "*yaaawn* Boring boring. Ayush do task, then play."]), null, false), 600);
+  }
+  setTimeout(yawn, 22000 + Math.random() * 26000);
+}
+function excite(ms = 4000){
+  nut.classList.add("excited"); clearTimeout(excitedT);
+  excitedT = setTimeout(() => nut.classList.remove("excited"), ms);
+}
+function hop(){ nut.classList.remove("hop"); void nut.offsetWidth; nut.classList.add("hop"); setTimeout(() => nut.classList.remove("hop"), 1200); }
+function petNut(){
+  hop(); excite();
+  if (Date.now() - lastImportant > 4000)
+    say(pick(["Ayush pet Nut! Happy happy happy.", "Scratch ear, question? Yes yes yes. Good human.", "Nut love pet. Now Ayush love task too, question?"]), null, false);
+}
+nut.addEventListener("click", petNut);
+nut.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); petNut(); } });
+addEventListener("resize", () => { x = Math.min(x, maxX()); setMove(0); nut.style.left = x + "px"; placeBubble(); });
+
+function say(text, said, important = true){
+  if (important) lastImportant = Date.now();
+  $("line").textContent = text;
+  $("said").hidden = !said; if (said) $("said").textContent = "Ayush: " + said;
+  bubble.classList.remove("wiggle"); void bubble.offsetWidth; bubble.classList.add("wiggle");
+  requestAnimationFrame(placeBubble);
+  excite(2500);
+}
+function celebrate(){
+  hop(); excite(6000);
+  const s = document.createElement("span"); s.className = "stamp"; s.textContent = pick(["amaze!", "good good!", "yes yes!"]);
+  s.style.left = (x + nutW() * 0.4) + "px"; s.style.top = "38%"; yard.append(s); setTimeout(() => s.remove(), 1500);
+}
+
+// ---- task actions (used by the page and by Nut's brain) ----
+function addTask(text, due){
+  text = String(text || "").trim().slice(0, 160); if (!text) return null;
+  let d = null;
+  if (due){ const x = new Date(due); if (!isNaN(x)) d = toLocal(x); }
+  const t = { id: uid(), text, due: d, done: false, reminded: false };
+  S.tasks.push(t); render(); save(); return t;
+}
+function setDone(id, done, fromClick){
+  const t = S.tasks.find(x => x.id === id); if (!t) return null;
+  t.done = !!done; render(); save();
+  if (done && fromClick){
+    celebrate();
+    const left = S.tasks.filter(x => !x.done).length;
+    say(left ? pick([`Amaze amaze amaze! "${t.text}" is done. Ayush good good good. ${left} more task, question?`,
+                     `Done! Ayush is fast fast fast. Nut proud. Next task now, question?`])
+             : `All tasks done! Amaze amaze amaze! Ayush best human. Now walk with Nut, question?`);
+  } else if (!done && fromClick) say(`"${t.text}" not done after all, question? Is okay. Nut watch it again.`);
+  return t;
+}
+
+$("addForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const t = addTask($("newTask").value, $("newDue").value);
+  if (!t) return;
+  $("newTask").value = ""; $("newDue").value = "";
+  say(t.due ? `Nut remember: "${t.text}". At ${fmtDue(t.due)} Nut bark bark bark. Promise.` : `Nut write it down: "${t.text}". Ayush do soon, question?`);
+});
+$("clearDone").addEventListener("click", () => {
+  const n = S.tasks.filter(t => t.done).length; if (!n) { say("No finished tasks yet. Ayush work first, question?"); return; }
+  S.tasks = S.tasks.filter(t => !t.done); render(); save(); say(`${n} finished task gone. Clean clean clean. Good.`);
+});
+
+// ---- reminders ----
+function checkReminders(){
+  const due = S.tasks.filter(t => isLate(t) && !t.reminded);
+  if (due.length){
+    due.forEach(t => t.reminded = true); save();
+    const t = due[0];
+    say(due.length > 1 ? `Ayush! ${due.length} tasks are time now! "${t.text}" and more. Ayush do, question? Nut wait wait wait.`
+                       : `Ayush! Time time time! "${t.text}". Ayush do now, question?`);
+    flashTitle();
+  }
+  render();
+}
+let flashing = null;
+function flashTitle(){
+  if (flashing || !document.hidden) return;
+  const base = document.title; let on = false;
+  flashing = setInterval(() => { document.title = (on = !on) ? "Woof! Task time" : base; }, 1200);
+  const stop = () => { if (!document.hidden){ clearInterval(flashing); flashing = null; document.title = base; document.removeEventListener("visibilitychange", stop); } };
+  document.addEventListener("visibilitychange", stop);
+}
+setInterval(checkReminders, 20000);
+
+// ---- Nut's brain ----
+let sample = null;
+const PERSONA = () => `You are Nut, the pet dog of a person named Ayush. You live on Ayush's task page and your job is to help him get his tasks done.
+
+How you talk (this is essential):
+- Broken, simple English. Short sentences. Drop "the", "a" and most helper verbs. Example shapes: "Ayush finish homework, question?", "Nut not understand. Explain.", "Task is done. Good."
+- When you ask a question, say it as a statement and end with ", question?" Example: "Ayush do task today, question?"
+- Repeat a word three times for strong feeling: "amaze amaze amaze", "happy happy happy", "bad bad bad", "sad sad", "fast fast fast".
+- Refer to yourself as "Nut". Call him "Ayush" or "friend".
+- 1-3 short sentences. You are a loving, loyal, curious dog: you like walks, fetch, treats, naps, and you distrust squirrels. Encouraging, a little bossy about tasks, never mean. Family friendly. Never say you are an AI.
+
+You can change Ayush's task list with your tools. If Ayush asks you to remember, add, remind, finish, tick off or remove something, use the tools, then confirm in your voice. When he gives a time like "6pm" or "in 2 hours" or "tomorrow morning", convert it to a full local date-time "YYYY-MM-DDTHH:MM" using the current time below. Never invent tasks he did not ask for.
+
+Current local time: ${toLocal(new Date())} (${new Date().toLocaleDateString([], { weekday: "long" })}).
+Ayush's tasks right now (id | text | due | status):
+${S.tasks.length ? S.tasks.map(t => `${t.id} | ${t.text} | ${t.due || "no time"} | ${t.done ? "done" : isLate(t) ? "LATE" : "to do"}`).join("\n") : "(none)"}`;
+
+const TOOLS = [
+  { name: "add_task", description: "Add a task to Ayush's list. Returns the new task.",
+    inputSchema: { type: "object", properties: { text: { type: "string", description: "Short task text" }, due: { type: "string", description: "Optional local date-time YYYY-MM-DDTHH:MM for the reminder" } }, required: ["text"] },
+    execute: ({ text, due }) => { const t = addTask(text, due); if (!t) throw new Error("empty task"); return { id: t.id, text: t.text, due: t.due }; } },
+  { name: "complete_task", description: "Mark a task done (or not done) by its id. Returns the task.",
+    inputSchema: { type: "object", properties: { id: { type: "string" }, done: { type: "boolean", description: "false to un-tick" } }, required: ["id"] },
+    execute: ({ id, done }) => { const t = setDone(String(id), done !== false, false); if (!t) throw new Error("no task with that id"); if (t.done) celebrate(); return { id: t.id, done: t.done }; } },
+  { name: "remove_task", description: "Delete a task by its id.",
+    inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] },
+    execute: ({ id }) => { const n = S.tasks.length; S.tasks = S.tasks.filter(t => t.id !== String(id)); render(); save(); if (S.tasks.length === n) throw new Error("no task with that id"); return { removed: String(id) }; } }
+];
+
+function offline(text){
+  const t = text.toLowerCase();
+  const open = S.tasks.filter(x => !x.done), late = S.tasks.filter(isLate);
+  if (/^(remind me to|add|remember)\s+/.test(t)){
+    const task = addTask(text.replace(/^(remind me to|add|remember)\s+/i, ""));
+    return `Nut write it: "${task.text}". Add a time in notebook, Nut bark at right time.`;
+  }
+  if (/task|todo|to do|what.*(do|left)/.test(t)) return open.length ? `${open.length} task left. First: "${open[0].text}". Ayush start now, question?` : "No task left! Amaze amaze amaze. Walk now, question?";
+  if (/walk|play|fetch|ball/.test(t)) return late.length ? "Walk after task. Task first. Nut is strict strict strict." : "Walk! Walk walk walk! Nut get leash.";
+  if (/tired|sad|stress|hard/.test(t)) return "Ayush sad, question? Nut sit close. Do one small task. Then rest. Is good plan.";
+  if (/love|good boy|miss/.test(t)) return "Nut love Ayush too. Happy happy happy. Tail go fast fast fast.";
+  if (/done|finish/.test(t)) return "Ayush finish task, question? Tick box in notebook. Then Nut celebrate.";
+  return pick(["Nut not understand. Explain, question?", "Woof. Nut listen. Ayush do task now, question?", "Hmm. Interesting interesting. Tell Nut more."]);
+}
+
+let busy = false;
+async function talk(text){
+  text = text.trim(); if (!text || busy) return;
+  busy = true; $("talkBtn").disabled = true;
+  S.chat.push({ role: "user", content: text });
+  say("…", text);
+  let reply;
+  if (!sample) reply = offline(text);
+  else {
+    const turns = S.chat.slice(-10);
+    while (turns.length && turns[0].role !== "user") turns.shift();
+    try {
+      $("line").textContent = "*sniff sniff* Nut think…";
+      const r = await sample([{ role: "user", content: PERSONA() }, { role: "assistant", content: "Nut understand. Nut ready." }, ...turns],
+        { cache: false, modelTier: "quick", tools: TOOLS, onText: ({ text }) => { $("line").textContent = text; placeBubble(); } });
+      reply = (r.text || "").trim() || "Woof.";
+    } catch (e) {
+      if (e && e.code === "not_granted") { sample = null; $("hint").textContent = "Nut is using his simple brain. He still adds tasks if you say \"remind me to…\"."; }
+      reply = (e && e.text && e.text.trim()) || offline(text);
+    }
+  }
+  S.chat.push({ role: "assistant", content: reply });
+  if (S.chat.length > 30) S.chat = S.chat.slice(-30);
+  say(reply, text); save();
+  busy = false; $("talkBtn").disabled = false; $("talk").focus();
+}
+$("talkForm").addEventListener("submit", e => { e.preventDefault(); const v = $("talk").value; $("talk").value = ""; talk(v); });
+
+// ---- greeting ----
+function greet(){
+  const h = new Date().getHours(), late = S.tasks.filter(isLate), open = S.tasks.filter(t => !t.done);
+  const hello = h < 12 ? "Morning, Ayush!" : h < 17 ? "Ayush is here!" : "Evening, Ayush!";
+  if (late.length) say(`${hello} Bad bad bad. ${late.length} task is late. "${late[0].text}". Ayush do now, question?`);
+  else if (open.length) say(`${hello} Happy happy happy. ${open.length} task today. Nut watch clock for Ayush.`);
+  else say(`${hello} No task. Amaze. Ayush tell Nut what to do today, question?`);
+}
+
+x = maxX() * 0.35; nut.style.left = x + "px";
+render(); greet(); checkReminders(); placeBubble();
+setTimeout(wander, 2500); setTimeout(blink, 1800); setTimeout(tilt, 6000); setTimeout(yawn, 12000);
+
+(async () => {
+  try { sample = await window.claude?.use?.("sample") ?? null; } catch { sample = null; }
+  if (!sample) $("hint").textContent = "Nut is using his simple brain. He still adds tasks if you say \"remind me to…\".";
+})();
+(async () => {
+  try {
+    const [db, user] = await Promise.all([window.claude?.use?.("db"), window.claude?.use?.("user")]);
+    if (!db || !user) return;
+    const id = await user.id(); if (!id) return;
+    docRef = db.doc("data/users/" + id + "/nut");
+    const snap = await docRef.get();
+    if (snap.exists){
+      const d = snap.data();
+      if (Array.isArray(d.tasks)) { S.tasks = d.tasks; S.chat = Array.isArray(d.chat) ? d.chat : S.chat; render(); greet(); checkReminders(); }
+      try { localStorage.setItem(LKEY, JSON.stringify(S)); } catch {}
+      $("saved").textContent = "Saved to your account";
+    } else save();
+  } catch { docRef = null; }
+})();
+</script>
+
+</body></html>
