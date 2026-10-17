@@ -1,449 +1,837 @@
-<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
-<title>Nut</title>
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Happy Birthday Ayush</title>
+<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Kalam:wght@300;400;700&display=swap">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap">
 <style>
-/* Layout: Ayush's sketch of Nut stands on the navy page; Nut talks in a pencil speech bubble; a ruled notebook page holds the tasks. Single deliberate theme taken from the sketch. */
+/* Layout: a live CFD wake fills the night sky behind a birthday title; five locks; then a two-column camp — the trek tracker (plan view + climb profile + campsites) beside Nut's page. One deliberate dark look: high-altitude night. */
 :root{
-  --navy:#253c65; --navy-dk:#1b2d4e; --navy-lt:#34508a;
-  --paper:#f6f1e4; --paper-line:#c9d4e6; --margin:#d9837b;
-  --ink:#24324f; --pencil:#5d6478; --gold:#d9a35a; --gold-lt:#efcf95; --tongue:#e59aa6;
-  --hand:"Caveat", "Segoe Print", "Bradley Hand", cursive;
-  --body:"Kalam", "Segoe Print", "Comic Neue", cursive;
-  color-scheme: dark;
+  --night:#0b1621; --night-2:#112130; --night-3:#18304a;
+  --snow:#e9eef1; --mist:#9fb2bf; --mist-2:#6f8494;
+  --marigold:#f2a33a; --glacier:#5cc6c9;
+  --day1:#7cc48a; --day2:#e3a463;
+  --bad:#ef7b6b;
+  --line:rgba(233,238,241,.14); --line-2:rgba(233,238,241,.28);
+  --display:"Instrument Serif","Iowan Old Style",Georgia,serif;
+  --body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
 }
 *{box-sizing:border-box}
-html,body{background:var(--navy)}
-body{color:var(--paper);font-family:var(--body);font-size:17px;line-height:1.45}
-.wrap{max-width:1240px;margin:0 auto;padding-inline:16px;padding-block:18px 28px;display:grid;grid-template-columns:minmax(0,1.45fr) minmax(0,1fr);gap:28px;align-items:start}
-@media (max-width:860px){.wrap{grid-template-columns:1fr;gap:12px}}
+html,body{background:var(--night);color:var(--snow)}
+body{font-family:var(--body);font-size:16px;line-height:1.5;min-height:100%}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--marigold);outline-offset:3px}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
 
-/* ---- Nut's side ---- */
-.stage{position:relative;min-width:0;display:flex;flex-direction:column;gap:12px}
-.name{font-family:var(--hand);font-weight:700;font-size:3.6rem;line-height:.8;margin:4px 0 0;color:var(--gold-lt);letter-spacing:.01em}
-.name small{display:inline-block;font-size:1.35rem;font-weight:500;color:#c9d4e6;margin-left:12px;letter-spacing:.02em}
-.yard{position:relative;height:clamp(400px,62vh,580px);overflow:hidden;border-bottom:0}
-.ground{position:absolute;left:0;right:0;bottom:6px;height:22px;pointer-events:none}
-.bubble{position:absolute;top:8px;left:0;width:min(360px,calc(100% - 8px));z-index:3;background:var(--paper);color:var(--ink);padding:12px 18px 12px;border:2.5px solid var(--ink);
-  border-radius:255px 18px 225px 18px/18px 225px 18px 255px;font-size:1.08rem;line-height:1.35;box-shadow:4px 5px 0 var(--navy-dk);transition:left var(--move,0s) linear}
-.bubble::after{content:"";position:absolute;left:var(--tip,50%);bottom:-20px;width:24px;height:22px;background:var(--paper);border-right:2.5px solid var(--ink);border-bottom:2.5px solid var(--ink);transform:translateX(-50%) skewX(-28deg) rotate(8deg);border-bottom-right-radius:14px}
-.bubble .said{font-family:var(--hand);font-size:1rem;color:var(--pencil);display:block;margin-bottom:2px}
-.bubble .line{white-space:pre-wrap;overflow-wrap:anywhere}
-.bubble.wiggle{animation:wig .5s ease}
-@keyframes wig{25%{transform:rotate(-1.2deg)}75%{transform:rotate(1deg)}}
-.nut{position:absolute;bottom:14px;left:0;height:64%;aspect-ratio:600/952;z-index:2;transition:left var(--move,0s) linear;cursor:pointer;-webkit-tap-highlight-color:transparent}
-.nut .shadow{position:absolute;left:14%;right:2%;bottom:-10px;height:22px;border-radius:50%;background:radial-gradient(closest-side,#0b1528aa,#0b152800)}
-.gait{position:absolute;inset:0;transform-origin:55% 100%}
-.walking .gait{animation:trot .42s ease-in-out infinite}
-@keyframes trot{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-5%) rotate(-2deg)}50%{transform:translateY(0) rotate(0)}75%{transform:translateY(-5%) rotate(2deg)}}
-.hop .gait{animation:hop .55s ease 2}
-@keyframes hop{50%{transform:translateY(-12%)}}
-.face{position:absolute;inset:0;transition:transform .45s ease}
-.flip .face{transform:scaleX(-1)}
-.face img{position:absolute;left:0;top:0;width:100%;height:auto;user-select:none;-webkit-user-drag:none;pointer-events:none}
-.body{transform-origin:55% 100%;animation:breathe 3.6s ease-in-out infinite}
-@keyframes breathe{50%{transform:scaleY(1.012) scaleX(1.004)}}
-.head{transform-origin:63% 88%;transition:transform .6s ease}
-.head.tilt-l{transform:rotate(-7deg)}
-.head.tilt-r{transform:rotate(6deg)}
-.head.yawning{transform:rotate(-4deg) translateY(-2%)}
-.tail{left:78.2%!important;top:77.8%!important;width:47%!important;transform-origin:8% 84%;animation:wag 1.1s ease-in-out infinite}
-.excited .tail{animation-duration:.28s}
-.sleepy .tail{animation-duration:2.6s}
-@keyframes wag{0%,100%{transform:rotate(-20deg)}50%{transform:rotate(14deg)}}
-.stamp{position:absolute;z-index:4;font-family:var(--hand);font-weight:700;font-size:2.2rem;color:var(--gold-lt);pointer-events:none;animation:up 1.4s ease-out forwards}
-@keyframes up{to{transform:translateY(-90px) rotate(-8deg);opacity:0}}
-@media (prefers-reduced-motion:reduce){.walking .gait,.hop .gait,.stamp,.bubble.wiggle,.body{animation:none}.tail{animation-duration:2s}.nut,.bubble{transition:none}}
-.talk{display:flex;gap:8px}
-.talk input{flex:1;min-width:0;font:inherit;font-size:1.05rem;background:transparent;color:var(--paper);border:0;border-bottom:2px dashed #8fa3c8;padding:6px 2px}
-.talk input::placeholder{color:#9fb0d0}
-.btn{font-family:var(--hand);font-weight:700;font-size:1.35rem;line-height:1;background:var(--gold);color:var(--navy-dk);border:2px solid var(--navy-dk);padding:6px 16px 8px;cursor:pointer;
-  border-radius:15px 225px 15px 255px/255px 15px 225px 15px;box-shadow:3px 3px 0 var(--navy-dk)}
-.btn:hover{background:var(--gold-lt)}
-.btn:disabled{opacity:.55;cursor:default}
-.hint{font-family:var(--hand);font-size:1.05rem;color:#9fb0d0;margin:0}
-:focus-visible{outline:3px solid var(--gold-lt);outline-offset:3px}
+/* ---------- background flow ---------- */
+#flow{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:0;image-rendering:auto;touch-action:none}
+#photos{position:fixed;inset:0;z-index:0;pointer-events:none}
+#photos img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity 2.4s ease;max-width:none}
+#photos img.on{opacity:.55}
+body.has-photos #flow{mix-blend-mode:screen;opacity:.8}
+.veil{position:fixed;inset:0;z-index:1;pointer-events:none;background:radial-gradient(ellipse at 50% 45%,rgba(11,22,33,.15),rgba(11,22,33,.75) 85%)}
 
-/* ---- Notebook ---- */
-.book{position:relative;min-width:0;background:var(--paper);color:var(--ink);padding:26px 22px 22px 58px;box-shadow:6px 8px 0 var(--navy-dk);
-  border-radius:3px 6px 4px 8px;transform:rotate(.6deg);
-  background-image:linear-gradient(90deg,transparent 42px,var(--margin) 42px,var(--margin) 44px,transparent 44px),
-    repeating-linear-gradient(var(--paper) 0 33px,var(--paper-line) 33px 34px);
-  background-position:0 0,0 18px}
-@media (max-width:860px){.book{transform:none}}
-.book::before{content:"";position:absolute;top:-12px;left:46%;width:110px;height:28px;background:#e8dcb8cc;transform:rotate(-3deg);box-shadow:0 1px 2px #0002}
-.book h2{font-family:var(--hand);font-weight:700;font-size:2.3rem;line-height:1;margin:0 0 4px}
-.tally{font-family:var(--hand);font-size:1.2rem;color:var(--pencil);margin:0 0 12px}
-.tally b{color:var(--ink)}
-.add{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;align-items:end;margin-bottom:14px}
-@media (max-width:480px){.add{grid-template-columns:1fr auto}.add .when{grid-column:1/-1;order:3}}
-.add input{font:inherit;font-size:1.05rem;color:var(--ink);background:transparent;border:0;border-bottom:2px solid var(--pencil);padding:4px 2px;min-width:0}
-.add input[type="datetime-local"]{font-size:.9rem;color:var(--pencil);color-scheme:light}
-.when{display:flex;flex-direction:column;font-family:var(--hand);font-size:1rem;color:var(--pencil)}
-.add .btn{box-shadow:2px 2px 0 var(--ink);border-color:var(--ink)}
-.list{list-style:none;margin:0;padding:0}
-.task{display:grid;grid-template-columns:30px minmax(0,1fr) auto;align-items:start;gap:8px;min-height:34px;padding:2px 0}
-.check{appearance:none;width:24px;height:24px;margin:4px 0 0;border:2.2px solid var(--ink);border-radius:4px 7px 5px 6px;background:transparent;cursor:pointer;position:relative}
-.check:checked::after{content:"";position:absolute;left:5px;top:-5px;width:9px;height:18px;border:solid var(--margin);border-width:0 3.5px 3.5px 0;transform:rotate(42deg)}
-.ttext{overflow-wrap:anywhere;font-size:1.1rem;line-height:1.5}
-.task.done .ttext{text-decoration:line-through;text-decoration-color:var(--margin);text-decoration-thickness:2px;color:var(--pencil)}
-.due{display:block;font-family:var(--hand);font-size:1.05rem;color:var(--pencil);line-height:1}
-.task.late .due{color:#b8463c;font-weight:700}
-.del{font-family:var(--hand);font-size:1.4rem;background:none;border:0;color:var(--pencil);cursor:pointer;line-height:1;padding:2px 4px}
-.del:hover{color:#b8463c}
-.empty{font-family:var(--hand);font-size:1.3rem;color:var(--pencil);padding:6px 0}
-.foot{margin-top:14px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-family:var(--hand);font-size:1.05rem;color:var(--pencil)}
-.foot button{font:inherit;background:none;border:0;color:var(--pencil);text-decoration:underline;cursor:pointer;padding:0}
+.screen{position:relative;z-index:2;min-height:100vh;min-height:100dvh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:48px;pointer-events:none}
+.screen > *{pointer-events:auto}
+.screen[hidden]{display:none!important}
+
+/* ---------- landing ---------- */
+.hello{text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px;pointer-events:none}
+.hello h1{font-family:var(--display);font-weight:400;font-size:clamp(3.2rem,11vw,8.5rem);line-height:.92;margin:0;letter-spacing:-.01em;text-wrap:balance;text-shadow:0 4px 40px rgba(11,22,33,.9)}
+.hello h1 em{color:var(--marigold);font-style:italic}
+.hello h1 span{display:inline-block;opacity:0;transform:translateY(18px);animation:rise 1s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes rise{to{opacity:1;transform:none}}
+.clickme{pointer-events:auto;font-family:var(--body);font-weight:700;font-size:1.15rem;letter-spacing:.02em;background:var(--marigold);color:var(--night);border:0;border-radius:999px;padding:14px 34px;cursor:pointer;
+  box-shadow:0 0 0 0 rgba(242,163,58,.6);animation:pulse 2.2s ease-out infinite 1.6s,fadein .8s ease 1.2s both}
+.clickme:hover{background:#ffb95a}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,163,58,.55)}70%{box-shadow:0 0 0 22px rgba(242,163,58,0)}100%{box-shadow:0 0 0 0 rgba(242,163,58,0)}}
+@keyframes fadein{from{opacity:0}to{opacity:1}}
+.caption{position:fixed;z-index:2;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));right:max(16px,env(safe-area-inset-right,0px));
+  font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--mist);pointer-events:none;text-shadow:0 1px 6px var(--night)}
+
+/* ---------- locks ---------- */
+.lock{width:min(520px,100%);background:rgba(17,33,48,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line-2);border-radius:18px;padding:28px 26px 24px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.lock .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);display:flex;justify-content:space-between;gap:12px}
+.pips{display:flex;gap:6px}
+.pips i{width:22px;height:6px;border-radius:3px;background:var(--line-2);transition:background .4s}
+.pips i.done{background:var(--marigold)}
+.pips i.now{background:var(--snow)}
+.lock h2{font-family:var(--display);font-weight:400;font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.12;margin:0;text-wrap:balance}
+.lock form{display:flex;gap:10px;flex-wrap:wrap}
+.lock input{flex:1 1 220px;min-width:0;font:inherit;font-size:1.1rem;color:var(--snow);background:var(--night);border:1px solid var(--line-2);border-radius:10px;padding:12px 14px}
+.lock input:focus{border-color:var(--marigold);outline:none}
+.btn{font-weight:700;background:var(--marigold);color:var(--night);border:0;border-radius:10px;padding:12px 22px;cursor:pointer}
+.btn:hover{background:#ffb95a}
+.lock .row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;min-height:1.6em}
+.linkish{background:none;border:0;padding:0;color:var(--glacier);cursor:pointer;text-decoration:underline;text-underline-offset:3px;font-size:.95rem}
+.msg{font-size:.98rem;color:var(--mist);margin:0;flex:1 1 200px}
+.msg.bad{color:var(--bad)}.msg.good{color:var(--day1)}
+.hint{margin:0;font-size:.98rem;color:var(--snow);background:var(--night-3);border-radius:10px;padding:10px 14px}
+.shake{animation:shake .45s ease}
+@keyframes shake{20%{transform:translateX(-10px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(3px)}}
+.granted{text-align:center;display:flex;flex-direction:column;gap:10px;align-items:center}
+.granted h2{font-size:clamp(2rem,6vw,3rem)}
+
+/* ---------- main stage ---------- */
+#stage{position:relative;z-index:2;background:var(--night)}
+.top{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 8px;max-width:1440px;margin:0 auto;display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.top h1{font-family:var(--display);font-weight:400;font-size:clamp(2.2rem,5vw,3.4rem);line-height:1;margin:0}
+.top h1 em{color:var(--marigold)}
+.top nav{display:flex;gap:6px}
+.top nav a{color:var(--mist);text-decoration:none;font-weight:600;font-size:.95rem;padding:6px 12px;border:1px solid var(--line);border-radius:999px}
+.top nav a:hover{color:var(--snow);border-color:var(--line-2)}
+.camp{max-width:1440px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 48px;
+  display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:28px;align-items:start}
+@media (max-width:1060px){.camp{grid-template-columns:minmax(0,1fr)}}
+.panel{min-width:0;display:flex;flex-direction:column;gap:16px}
+.panel > header h2{font-family:var(--display);font-weight:400;font-size:2rem;line-height:1.05;margin:0}
+.panel > header p{margin:4px 0 0;color:var(--mist);max-width:62ch}
+.facts{display:flex;flex-wrap:wrap;gap:6px 18px;font-family:var(--mono);font-size:.8rem;color:var(--mist);margin:0;padding:0;list-style:none}
+.facts b{color:var(--snow);font-weight:500}
+
+.tabs{display:flex;gap:4px;background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:4px;width:max-content;max-width:100%;flex-wrap:wrap}
+.tabs button{border:0;background:none;color:var(--mist);font-weight:600;font-size:.92rem;padding:7px 14px;border-radius:9px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--night-3);color:var(--snow)}
+.tabs .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:7px;vertical-align:1px}
+
+.figure{background:var(--night-2);border:1px solid var(--line);border-radius:14px;padding:14px 14px 10px;display:flex;flex-direction:column;gap:6px}
+.figure .label{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--mist-2);display:flex;justify-content:space-between;gap:10px}
+.svgbox{position:relative;width:100%}
+.svgbox svg{position:absolute;inset:0;width:100%;height:100%;display:block;overflow:visible}
+#planBox{aspect-ratio:800/170}
+#profBox{aspect-ratio:800/250}
+.axis text{font-family:var(--mono);font-size:11px;fill:var(--mist-2)}
+.axis line{stroke:var(--line)}
+.pinlbl{font-family:var(--body);font-size:12px;font-weight:600;fill:var(--snow);paint-order:stroke;stroke:var(--night-2);stroke-width:4px}
+
+/* trekkers */
+.trekkers{position:absolute;width:58px;height:54px;transform:translate(-50%,-100%);pointer-events:none;z-index:3;transition:none}
+.trekkers img{width:100%;height:100%;object-fit:contain}
+.trekkers .tag{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);white-space:nowrap;font-size:.68rem;font-weight:700;background:var(--snow);color:var(--night);border-radius:6px;padding:1px 6px;margin-bottom:2px}
+.walker .leg{transform-box:fill-box;transform-origin:50% 0}
+.walking .walker .leg.a{animation:swing .6s ease-in-out infinite}
+.walking .walker .leg.b{animation:swing .6s ease-in-out infinite reverse}
+.walking .walker .bob{animation:bob .3s ease-in-out infinite alternate}
+@keyframes swing{0%{transform:rotate(24deg)}50%{transform:rotate(-24deg)}100%{transform:rotate(24deg)}}
+@keyframes bob{to{transform:translateY(-1.2px)}}
+
+.controls{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.play{display:inline-flex;align-items:center;gap:8px;font-weight:700;background:var(--marigold);color:var(--night);border:0;border-radius:999px;padding:9px 18px;cursor:pointer}
+.play:hover{background:#ffb95a}
+#scrub{flex:1 1 200px;min-width:0;accent-color:var(--marigold)}
+.readout{display:grid;grid-template-columns:repeat(4,minmax(0,auto));gap:4px 22px;font-family:var(--mono);font-size:.82rem;color:var(--mist);align-items:baseline;justify-content:start}
+.readout b{display:block;color:var(--snow);font-weight:500;font-size:1.02rem}
+.readout .now{grid-column:1/-1;font-family:var(--body);font-size:1rem;color:var(--snow)}
+@media (max-width:480px){.readout{grid-template-columns:repeat(2,minmax(0,auto))}}
+
+.sites{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px}
+.site{min-width:0}
+.site button{width:100%;height:100%;text-align:left;background:var(--night-2);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer;display:flex;flex-direction:column;gap:4px;transition:border-color .25s,background .25s}
+.site button:hover{border-color:var(--line-2)}
+.site.here button{border-color:var(--marigold);background:var(--night-3)}
+.site .meta{font-family:var(--mono);font-size:.72rem;color:var(--mist);display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.site .meta i{width:8px;height:8px;border-radius:50%;display:inline-block}
+.site h3{margin:0;font-size:1.02rem;font-weight:700}
+.site p{margin:0;color:var(--mist);font-size:.92rem;line-height:1.45}
+.fine{font-size:.82rem;color:var(--mist-2);margin:0}
+
+.nutframe{width:100%;height:1160px;border:0;border-radius:14px;background:#253c65;display:block}
+@media (max-width:860px){.nutframe{height:1500px}}
+
+@media (prefers-reduced-motion:reduce){
+  .hello h1 span{animation:none;opacity:1;transform:none}
+  .clickme{animation:none}
+  .walking .walker .leg,.walking .walker .bob{animation:none}
+  #photos img{transition:none}
+}
+
+/* ---------- trail (from the starter file) ---------- */
+.trailcard{--ink:#17222B;--parchment:#F6F2E8;--card:#FFFFFF;--muted:#55606A;--line:rgba(23,34,43,.15);--kinnaur:#3F6B4A;--spiti:#B97D4B;--gold:#D8B65E;--saved:#4C7A52;
+  --skin-a:#B9835A;--hair-a:#2E2018;--dress-a:#2B2420;--dress-a-dot:#D9A441;--skin-n:#C08A5C;--hair-n:#1A1A1A;--shirt-n:#A9B79A;--pants-n:#4A4A4A;
+  background:var(--parchment);color:var(--ink);border-radius:14px;padding:18px 16px 20px;display:flex;flex-direction:column;gap:18px;min-width:0}
+#trail-wrap{position:relative;width:100%}
+#trail-wrap svg{width:100%;height:auto;display:block}
+.walker{animation:none}
+@keyframes pose-a-toggle{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes pose-b-toggle{0%,49%{opacity:0}50%,100%{opacity:1}}
+.pose-a{animation:pose-a-toggle .6s steps(1) infinite}
+.pose-b{animation:pose-b-toggle .6s steps(1) infinite}
+@media (prefers-reduced-motion:reduce){.pose-a,.pose-b{animation:none}.pose-b{opacity:0}}
+.tstop{position:absolute;width:22px;height:22px;margin-left:-11px;margin-top:-11px;padding:0;border-radius:50%;background:var(--spiti);border:3px solid var(--parchment);box-shadow:0 0 0 1px var(--ink);cursor:pointer;transition:transform .15s ease}
+.tstop:hover{transform:scale(1.2)}
+.tstop:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
+.tstop.summit{background:var(--gold);width:26px;height:26px;margin-left:-13px;margin-top:-13px}
+.tstop-label{position:absolute;font-size:13px;white-space:nowrap;transform:translate(-50%,10px);pointer-events:none;color:var(--ink)}
+@media (max-width:560px){.tstop-label{font-size:10px}}
+#notePanel{display:none;box-sizing:border-box;padding:18px 20px;background:var(--card);border:1px solid var(--line);border-radius:8px}
+#notePanel.open{display:block}
+#notePanel h3{font-size:1.2rem;margin:0 0 12px;color:var(--ink)}
+#notePanel textarea{box-sizing:border-box;width:100%;min-height:80px;font:inherit;font-size:15px;padding:10px;background:var(--parchment);color:var(--ink);border:1px solid var(--line);border-radius:6px;resize:vertical}
+#notePanel .nrow{display:flex;gap:16px;margin-top:14px;align-items:flex-start;flex-wrap:wrap}
+#notePanel input[type=file]{color:var(--ink);max-width:100%}
+#notePanel img.preview{max-width:220px;border-radius:6px;display:block;margin-top:10px}
+#notePanel .saved-note{font-size:13px;color:var(--saved);margin-top:8px;min-height:1em}
 </style>
 
-<main class="wrap">
-  <section class="stage" aria-label="Nut">
-    <h1 class="name">Nut <small>Ayush's dog. Keeper of tasks.</small></h1>
-    <div class="yard" id="yard">
-      <div class="bubble" id="bubble" aria-live="polite">
-        <span class="said" id="said" hidden></span>
-        <span class="line" id="line">Ayush! Ayush is here! Happy happy happy.</span>
-      </div>
-      <svg class="ground" viewBox="0 0 800 22" preserveAspectRatio="none" aria-hidden="true"><path d="M0 12 C80 9 140 15 230 11 S390 8 470 13 S640 10 800 12" fill="none" stroke="#8fa3c8" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 0"/><path d="M60 17 l18 -1 M300 18 l26 -1 M560 17 l20 0" stroke="#8fa3c8" stroke-width="1.5" stroke-linecap="round" opacity=".6"/></svg>
-      <div class="nut" id="nut" role="button" tabindex="0" aria-label="Pet Nut">
-        <div class="shadow"></div>
-        <div class="gait"><div class="face" id="face">
-          <img class="tail" src="tail.webp" alt="">
-          <img class="body" src="body.webp" alt="">
-          <img class="head" id="head" src="head.webp" alt="">
-        </div></div>
-      </div>
-    </div>
-    <form class="talk" id="talkForm">
-      <input id="talk" autocomplete="off" maxlength="400" placeholder="Say something to Nut… (try: remind me to study at 6pm)">
-      <button class="btn" id="talkBtn">Tell</button>
-    </form>
-    <p class="hint" id="hint">Nut can add, tick off and remind you about tasks when you ask him.</p>
-  </section>
+<canvas id="flow" aria-hidden="true"></canvas>
+<div id="photos" aria-hidden="true"></div>
+<div class="veil" id="veil"></div>
 
-  <section class="book" aria-label="Task notebook">
-    <h2>Ayush's tasks</h2>
-    <p class="tally" id="tally"></p>
-    <form class="add" id="addForm">
-      <input id="newTask" autocomplete="off" maxlength="160" placeholder="New task…" aria-label="New task">
-      <label class="when">remind at<input id="newDue" type="datetime-local" aria-label="Remind at (optional)"></label>
-      <button class="btn">Add</button>
+<!-- 1 · landing -->
+<section class="screen" id="landing">
+  <div class="hello">
+    <h1><span style="animation-delay:.15s">Happy</span> <span style="animation-delay:.4s">birthday,</span><br><span style="animation-delay:.75s"><em>Ayush</em></span></h1>
+    <button class="clickme" id="clickme" type="button">Click me</button>
+  </div>
+</section>
+<p class="caption" id="caption">Live flow past a cylinder · lattice Boltzmann, Re ≈ 100 · drag anywhere to stir it</p>
+
+<!-- 2 · five locks -->
+<section class="screen" id="locks" hidden>
+  <div class="lock" id="lockCard">
+    <div class="eyebrow"><span id="lockNo">Lock 1 of 5</span><span class="pips" id="pips" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span></div>
+    <h2 id="q">…</h2>
+    <form id="ansForm" autocomplete="off">
+      <input id="ans" aria-label="Your answer" placeholder="Type the password" autocapitalize="off" spellcheck="false">
+      <button class="btn" type="submit">Unlock</button>
     </form>
-    <ul class="list" id="list"></ul>
-    <div class="foot"><span id="saved">Saved in this browser</span><button id="clearDone" type="button">Clear finished tasks</button></div>
-  </section>
+    <div class="row">
+      <p class="msg" id="msg" aria-live="polite">Five questions only Ayush can answer.</p>
+      <button class="linkish" type="button" id="hintBtn">Need a hint?</button>
+    </div>
+    <p class="hint" id="hint" hidden></p>
+  </div>
+  <div class="lock granted" id="granted" hidden>
+    <h2>All five, unlocked.</h2>
+    <p class="msg">Of course you knew them. Come see where we walked.</p>
+    <button class="btn" type="button" id="enter">Open it</button>
+  </div>
+</section>
+
+<!-- 3 · main stage -->
+<main id="stage" hidden>
+  <div class="top">
+    <h1>Happy birthday, <em>Ayush</em></h1>
+    <nav aria-label="Sections"><a href="#trek">The trail</a><a href="#nut">Nut</a></nav>
+  </div>
+  <div class="camp">
+    <section class="panel" id="trek" aria-label="Trek tracker">
+      <header>
+        <h2>Pin Bhaba Pass, on foot</h2>
+      </header>
+      <div class="trailcard">
+        <div id="trail-wrap">
+          <svg viewBox="0 0 900 500" role="img" aria-label="Illustrated trail from Kafnu over Pin Bhaba Pass to Mudh, with two walkers">
+    <path id="trailPath" d="M 70,440 C 120,120 650,480 830,90"
+          fill="none" stroke="var(--kinnaur)" stroke-width="4"
+          stroke-linecap="round" stroke-dasharray="1 14" />
+
+    <defs>
+      <!-- Aahana -->
+      <g id="aahana-body">
+        <rect x="-13" y="-50" width="4" height="19" rx="2" fill="var(--skin-a)"/>
+        <rect x="9"   y="-50" width="4" height="19" rx="2" fill="var(--skin-a)"/>
+        <polygon points="-8,-52 8,-52 13,-18 -13,-18" fill="var(--dress-a)"/>
+        <circle cx="-5" cy="-38" r="1.6" fill="var(--dress-a-dot)"/>
+        <circle cx="4"  cy="-30" r="1.6" fill="var(--dress-a-dot)"/>
+        <circle cx="-3" cy="-24" r="1.6" fill="var(--dress-a-dot)"/>
+        <rect x="-6"   y="-56" width="2.5" height="6" fill="var(--skin-a)"/>
+        <rect x="3.5"  y="-56" width="2.5" height="6" fill="var(--skin-a)"/>
+        <rect x="-3" y="-58" width="6" height="6" fill="var(--skin-a)"/>
+        <circle cx="0" cy="-64" r="9" fill="var(--skin-a)"/>
+        <circle cx="0" cy="-66" r="10" fill="var(--hair-a)"/>
+        <circle cx="-9" cy="-59" r="4" fill="var(--hair-a)"/>
+        <circle cx="9"  cy="-59" r="4" fill="var(--hair-a)"/>
+        <circle cx="-7" cy="-71" r="3.5" fill="var(--hair-a)"/>
+        <circle cx="7"  cy="-71" r="3.5" fill="var(--hair-a)"/>
+        <circle cx="0"  cy="-75" r="3.5" fill="var(--hair-a)"/>
+        <circle cx="-3" cy="-64" r="1" fill="#17222B"/>
+        <circle cx="3"  cy="-64" r="1" fill="#17222B"/>
+        <path d="M -3,-60 Q 0,-58 3,-60" stroke="#17222B" stroke-width="1" fill="none" stroke-linecap="round"/>
+      </g>
+      <g id="aahana-legs-a">
+        <rect x="-7" y="-20" width="6" height="20" rx="3" fill="var(--skin-a)"/>
+        <rect x="2"  y="-20" width="6" height="20" rx="3" fill="var(--skin-a)"/>
+      </g>
+      <g id="aahana-legs-b">
+        <rect x="-2" y="-20" width="6" height="20" rx="3" fill="var(--skin-a)"/>
+        <rect x="7"  y="-20" width="6" height="20" rx="3" fill="var(--skin-a)"/>
+      </g>
+
+      <!-- Nishant -->
+      <g id="nishant-body">
+        <rect x="-13" y="-44" width="4" height="18" rx="2" fill="var(--skin-n)"/>
+        <rect x="9"   y="-44" width="4" height="18" rx="2" fill="var(--skin-n)"/>
+        <polygon points="-9,-50 9,-50 11,-24 -11,-24" fill="var(--shirt-n)"/>
+        <rect x="-13" y="-50" width="6" height="8" rx="2" fill="var(--shirt-n)"/>
+        <rect x="7"   y="-50" width="6" height="8" rx="2" fill="var(--shirt-n)"/>
+        <polygon points="-2,-42 0,-46 2,-42" fill="#ffffff" opacity="0.55"/>
+        <polygon points="-6,-34 -4,-38 -2,-34" fill="#ffffff" opacity="0.55"/>
+        <polygon points="2,-30 4,-34 6,-30" fill="#ffffff" opacity="0.55"/>
+        <rect x="-3" y="-58" width="6" height="6" fill="var(--skin-n)"/>
+        <circle cx="0" cy="-64" r="9" fill="var(--skin-n)"/>
+        <circle cx="0" cy="-67" r="9.5" fill="var(--hair-n)"/>
+        <circle cx="-8" cy="-60" r="3.5" fill="var(--hair-n)"/>
+        <circle cx="8"  cy="-60" r="3.5" fill="var(--hair-n)"/>
+        <circle cx="-6" cy="-73" r="3" fill="var(--hair-n)"/>
+        <circle cx="6"  cy="-73" r="3" fill="var(--hair-n)"/>
+        <circle cx="0"  cy="-76" r="3" fill="var(--hair-n)"/>
+        <circle cx="-3" cy="-64" r="1" fill="#17222B"/>
+        <circle cx="3"  cy="-64" r="1" fill="#17222B"/>
+        <path d="M -3,-60 Q 0,-58 3,-60" stroke="#17222B" stroke-width="1" fill="none" stroke-linecap="round"/>
+      </g>
+      <g id="nishant-legs-a">
+        <rect x="-7" y="-24" width="6" height="24" rx="3" fill="var(--pants-n)"/>
+        <rect x="2"  y="-24" width="6" height="24" rx="3" fill="var(--pants-n)"/>
+      </g>
+      <g id="nishant-legs-b">
+        <rect x="-2" y="-24" width="6" height="24" rx="3" fill="var(--pants-n)"/>
+        <rect x="7"  y="-24" width="6" height="24" rx="3" fill="var(--pants-n)"/>
+      </g>
+    </defs>
+
+    <!-- Aahana walks the loop, a couple of seconds ahead -->
+    <g class="walker">
+      <animateMotion dur="18s" repeatCount="indefinite" keyPoints="0;1" keyTimes="0;1" calcMode="linear">
+        <mpath href="#trailPath"/>
+      </animateMotion>
+      <use href="#aahana-legs-b" class="pose pose-b"/>
+      <use href="#aahana-legs-a" class="pose pose-a"/>
+      <use href="#aahana-body"/>
+    </g>
+
+    <!-- Nishant walks the same loop, slightly behind her -->
+    <g class="walker">
+      <animateMotion dur="18s" repeatCount="indefinite" begin="-2s" calcMode="linear">
+        <mpath href="#trailPath"/>
+      </animateMotion>
+      <use href="#nishant-legs-b" class="pose pose-b"/>
+      <use href="#nishant-legs-a" class="pose pose-a"/>
+      <use href="#nishant-body"/>
+    </g>
+  </svg>
+          <div id="stops"></div>
+        </div>
+        <div id="notePanel">
+          <h3 id="panel-title"></h3>
+          <textarea id="panel-note" placeholder="Write something about this stop..."></textarea>
+          <div class="nrow"><div><input type="file" id="panel-photo" accept="image/*"><img id="panel-preview" class="preview" alt="Photo for this stop" hidden></div></div>
+          <div class="saved-note" id="panel-saved" aria-live="polite"></div>
+        </div>
+      </div>
+    
+      <ul class="facts">
+        <li><b id="fDist">49.4 km</b> walked</li>
+        <li><b>4,907 m</b> at the pass</li>
+        <li><b id="fGain">—</b> climbed</li>
+        <li><b>3–4 July 2022</b></li>
+      </ul>
+      <div class="tabs" role="group" aria-label="Which day">
+        <button type="button" data-day="0" aria-pressed="true">Both days</button>
+        <button type="button" data-day="1" aria-pressed="false"><span class="dot" style="background:var(--day1)"></span>Day 1 · 3 July</button>
+        <button type="button" data-day="2" aria-pressed="false"><span class="dot" style="background:var(--day2)"></span>Day 2 · 4 July</button>
+      </div>
+
+      <div class="figure">
+        <div class="label"><span>Route from above</span><span>North →</span></div>
+        <div class="svgbox" id="planBox"><svg id="plan" viewBox="0 0 800 170" preserveAspectRatio="none" role="img" aria-label="Map of the route, north to the right"></svg></div>
+      </div>
+
+      <div class="figure">
+        <div class="label"><span>The climb</span><span>elevation, m · distance, km</span></div>
+        <div class="svgbox" id="profBox">
+          <svg id="prof" viewBox="0 0 800 250" preserveAspectRatio="none" role="img" aria-label="Elevation profile of the trek"></svg>
+          <div class="trekkers" id="trekkers"><span class="tag">Ayush &amp; Aahanu</span></div>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="play" type="button" id="play" aria-label="Play the trek">▶ Play</button>
+        <input type="range" id="scrub" min="0" max="1000" value="0" aria-label="Position along the trek">
+      </div>
+      <div class="readout" aria-live="off">
+        <span class="now" id="rNow">Iron bridge, above Kafnu</span>
+        <span>day · time<b id="rTime">1 · 07:50</b></span>
+        <span>walked<b id="rDist">0.0 km</b></span>
+        <span>elevation<b id="rEle">2,495 m</b></span>
+        <span>to go<b id="rLeft">49.4 km</b></span>
+      </div>
+
+      <ul class="sites" id="sites"></ul>
+      <p class="fine">Times are IST from the GPS waypoints. We slept at Phutsirang; the other camps we walked through.</p>
+    </section>
+
+    <section class="panel" id="nut" aria-label="Nut">
+      <header>
+        <h2>Nut</h2>
+        <p>Keeper of tasks. Pet him, or tell him something to remember.</p>
+      </header>
+      <iframe class="nutframe" id="nutFrame" src="nut/index.html" title="Nut, Ayush's dog and task keeper" loading="lazy"></iframe>
+    </section>
+  </div>
 </main>
 
 <script>
+/* ============ Swap-in spots ============
+   PHOTOS: add image paths (published next to this page) to show photos behind the title.
+   TREKKERS_SRC: path to the animation of Ayush & Aahanu (gif/webp/png). Empty = drawn hikers. */
+const PHOTOS = [];
+const TREKKERS_SRC = "";
+
+const DATA = {"track":[[0.0,2494,1.294,2.325],[0.041,2497,1.322,2.31],[0.082,2498,1.359,2.295],[0.124,2500,1.396,2.279],[0.168,2503,1.438,2.286],[0.208,2505,1.477,2.295],[0.251,2510,1.517,2.308],[0.293,2513,1.556,2.319],[0.342,2516,1.596,2.344],[0.384,2520,1.628,2.368],[0.433,2525,1.671,2.388],[0.474,2530,1.707,2.391],[0.523,2535,1.752,2.375],[0.568,2537,1.797,2.37],[0.613,2540,1.837,2.388],[0.655,2545,1.87,2.411],[0.7,2551,1.896,2.444],[0.741,2556,1.923,2.469],[0.783,2562,1.94,2.491],[0.828,2569,1.967,2.523],[0.869,2576,1.997,2.547],[0.91,2582,2.028,2.572],[0.952,2587,2.058,2.585],[0.994,2588,2.093,2.604],[1.041,2591,2.125,2.614],[1.082,2592,2.163,2.623],[1.122,2595,2.201,2.637],[1.165,2600,2.238,2.652],[1.212,2607,2.277,2.668],[1.254,2615,2.315,2.681],[1.294,2621,2.353,2.687],[1.337,2625,2.392,2.693],[1.382,2633,2.43,2.715],[1.435,2635,2.48,2.727],[1.478,2636,2.518,2.739],[1.53,2635,2.567,2.756],[1.574,2634,2.609,2.763],[1.615,2634,2.644,2.778],[1.655,2640,2.674,2.771],[1.696,2647,2.713,2.777],[1.74,2654,2.751,2.79],[1.78,2659,2.79,2.787],[1.827,2665,2.836,2.783],[1.872,2670,2.875,2.771],[1.912,2677,2.9,2.769],[1.953,2686,2.92,2.777],[1.995,2686,2.952,2.775],[2.036,2686,2.989,2.779],[2.084,2687,3.022,2.791],[2.13,2691,3.061,2.808],[2.172,2693,3.098,2.828],[2.217,2697,3.138,2.827],[2.261,2702,3.174,2.836],[2.308,2707,3.218,2.849],[2.349,2718,3.235,2.85],[2.393,2716,3.237,2.869],[2.434,2712,3.265,2.895],[2.475,2704,3.286,2.908],[2.52,2701,3.326,2.925],[2.565,2704,3.333,2.912],[2.61,2711,3.368,2.936],[2.652,2715,3.403,2.952],[2.693,2718,3.43,2.974],[2.733,2719,3.469,2.982],[2.781,2723,3.507,3.01],[2.826,2729,3.549,3.019],[2.87,2735,3.583,3.042],[2.913,2744,3.62,3.049],[2.96,2752,3.657,3.063],[3.001,2754,3.683,3.061],[3.046,2758,3.726,3.065],[3.091,2762,3.759,3.081],[3.133,2766,3.798,3.09],[3.173,2774,3.828,3.093],[3.215,2777,3.867,3.104],[3.258,2776,3.896,3.116],[3.301,2776,3.935,3.129],[3.344,2777,3.965,3.141],[3.387,2783,4.001,3.154],[3.429,2792,4.025,3.16],[3.476,2801,4.068,3.172],[3.517,2809,4.091,3.18],[3.562,2813,4.135,3.187],[3.61,2818,4.182,3.2],[3.652,2824,4.221,3.21],[3.694,2830,4.258,3.218],[3.736,2833,4.298,3.23],[3.782,2838,4.338,3.239],[3.824,2844,4.373,3.217],[3.866,2852,4.405,3.192],[3.909,2859,4.427,3.211],[3.95,2869,4.441,3.224],[3.99,2872,4.48,3.221],[4.031,2873,4.498,3.215],[4.075,2873,4.539,3.204],[4.117,2871,4.572,3.181],[4.157,2872,4.603,3.163],[4.202,2874,4.644,3.15],[4.243,2878,4.683,3.146],[4.284,2883,4.71,3.152],[4.337,2885,4.755,3.179],[4.384,2888,4.798,3.194],[4.425,2889,4.837,3.181],[4.467,2890,4.866,3.182],[4.508,2894,4.881,3.176],[4.555,2897,4.921,3.195],[4.603,2898,4.926,3.206],[4.649,2898,4.928,3.214],[4.693,2900,4.95,3.23],[4.74,2899,4.982,3.239],[4.787,2900,5.019,3.261],[4.827,2901,5.051,3.275],[4.872,2904,5.086,3.292],[4.921,2908,5.118,3.31],[4.962,2913,5.142,3.323],[5.002,2916,5.163,3.34],[5.049,2921,5.191,3.347],[5.09,2925,5.212,3.344],[5.132,2929,5.249,3.341],[5.174,2932,5.279,3.329],[5.215,2934,5.319,3.332],[5.26,2938,5.362,3.333],[5.308,2941,5.395,3.338],[5.353,2947,5.428,3.355],[5.394,2950,5.439,3.375],[5.434,2954,5.474,3.388],[5.481,2958,5.515,3.391],[5.522,2965,5.545,3.384],[5.563,2968,5.58,3.388],[5.604,2974,5.614,3.398],[5.644,2980,5.649,3.4],[5.686,2986,5.689,3.398],[5.727,2992,5.729,3.392],[5.77,2996,5.753,3.418],[5.812,2999,5.775,3.433],[5.852,3004,5.803,3.452],[5.894,3010,5.839,3.467],[5.937,3016,5.873,3.488],[5.98,3022,5.913,3.498],[6.023,3024,5.953,3.497],[6.065,3027,5.964,3.474],[6.11,3030,5.996,3.496],[6.155,3037,6.037,3.492],[6.196,3042,6.065,3.485],[6.237,3048,6.101,3.48],[6.294,3055,6.155,3.495],[6.34,3068,6.195,3.514],[6.384,3086,6.234,3.531],[6.43,3093,6.21,3.519],[6.471,3097,6.223,3.51],[6.522,3086,6.256,3.533],[6.565,3087,6.295,3.546],[6.607,3094,6.33,3.554],[6.649,3101,6.357,3.551],[6.695,3106,6.392,3.568],[6.736,3109,6.424,3.562],[6.777,3116,6.453,3.565],[6.819,3121,6.48,3.588],[6.86,3122,6.514,3.603],[6.901,3121,6.547,3.622],[6.944,3123,6.565,3.628],[6.984,3125,6.588,3.655],[7.027,3128,6.601,3.663],[7.07,3129,6.614,3.694],[7.112,3132,6.631,3.73],[7.152,3136,6.671,3.728],[7.195,3142,6.694,3.709],[7.241,3149,6.708,3.723],[7.284,3152,6.742,3.713],[7.325,3152,6.766,3.734],[7.366,3151,6.779,3.727],[7.41,3155,6.807,3.747],[7.454,3161,6.847,3.759],[7.495,3167,6.879,3.774],[7.54,3170,6.917,3.774],[7.583,3173,6.946,3.801],[7.625,3178,6.983,3.814],[7.669,3182,7.024,3.815],[7.71,3189,7.062,3.813],[7.751,3192,7.102,3.805],[7.792,3191,7.128,3.801],[7.835,3185,7.166,3.796],[7.88,3180,7.208,3.801],[7.927,3175,7.251,3.793],[7.968,3174,7.269,3.774],[8.008,3179,7.304,3.76],[8.05,3187,7.344,3.757],[8.091,3196,7.374,3.743],[8.131,3200,7.412,3.749],[8.172,3200,7.446,3.747],[8.223,3203,7.476,3.765],[8.268,3208,7.505,3.796],[8.317,3215,7.537,3.833],[8.364,3223,7.558,3.872],[8.405,3232,7.574,3.91],[8.446,3242,7.575,3.947],[8.486,3251,7.586,3.976],[8.535,3253,7.605,4.004],[8.579,3257,7.638,4.03],[8.62,3258,7.667,4.06],[8.663,3261,7.705,4.079],[8.704,3262,7.741,4.097],[8.748,3263,7.779,4.103],[8.792,3262,7.822,4.098],[8.834,3262,7.862,4.11],[8.88,3260,7.897,4.14],[8.924,3259,7.937,4.153],[8.968,3261,7.975,4.167],[9.011,3263,8.004,4.197],[9.051,3265,8.03,4.225],[9.092,3266,8.062,4.248],[9.134,3266,8.098,4.269],[9.19,3265,8.145,4.291],[9.231,3264,8.185,4.298],[9.276,3264,8.228,4.306],[9.318,3266,8.265,4.327],[9.365,3267,8.299,4.358],[9.41,3268,8.338,4.377],[9.452,3269,8.374,4.397],[9.493,3271,8.409,4.415],[9.536,3272,8.449,4.43],[9.58,3271,8.489,4.446],[9.622,3271,8.529,4.457],[9.665,3270,8.569,4.47],[9.711,3271,8.614,4.472],[9.759,3272,8.649,4.503],[9.803,3273,8.669,4.542],[9.849,3275,8.696,4.578],[9.891,3277,8.716,4.615],[9.935,3280,8.736,4.653],[9.976,3283,8.764,4.679],[10.017,3284,8.779,4.695],[10.059,3285,8.794,4.683],[10.107,3288,8.804,4.718],[10.148,3290,8.83,4.748],[10.19,3293,8.86,4.777],[10.235,3297,8.893,4.8],[10.287,3300,8.921,4.842],[10.328,3302,8.946,4.87],[10.372,3304,8.966,4.907],[10.413,3306,8.982,4.937],[10.453,3308,9.017,4.955],[10.499,3312,9.059,4.971],[10.541,3315,9.091,4.998],[10.588,3321,9.127,5.027],[10.63,3327,9.163,5.045],[10.682,3330,9.213,5.055],[10.725,3334,9.251,5.065],[10.767,3334,9.291,5.071],[10.808,3333,9.326,5.085],[10.85,3331,9.358,5.089],[10.89,3331,9.376,5.116],[10.932,3333,9.415,5.125],[10.974,3335,9.45,5.129],[11.018,3331,9.49,5.134],[11.058,3328,9.528,5.14],[11.1,3324,9.569,5.133],[11.142,3324,9.608,5.125],[11.182,3323,9.646,5.13],[11.224,3323,9.684,5.138],[11.266,3323,9.725,5.144],[11.308,3322,9.764,5.15],[11.35,3322,9.798,5.165],[11.394,3323,9.835,5.182],[11.434,3325,9.859,5.188],[11.478,3327,9.894,5.213],[11.522,3328,9.933,5.232],[11.568,3329,9.968,5.261],[11.622,3331,10.021,5.264],[11.665,3332,10.064,5.267],[11.707,3334,10.1,5.285],[11.749,3338,10.133,5.306],[11.791,3341,10.171,5.315],[11.842,3345,10.22,5.327],[11.884,3348,10.262,5.331],[11.924,3352,10.3,5.333],[11.967,3356,10.342,5.341],[12.011,3359,10.383,5.339],[12.054,3362,10.42,5.324],[12.097,3362,10.456,5.323],[12.138,3359,10.487,5.338],[12.182,3359,10.517,5.363],[12.224,3357,10.551,5.379],[12.264,3361,10.584,5.396],[12.306,3361,10.62,5.414],[12.347,3363,10.654,5.431],[12.392,3364,10.697,5.436],[12.436,3367,10.735,5.446],[12.484,3369,10.774,5.47],[12.533,3372,10.821,5.48],[12.574,3379,10.86,5.48],[12.615,3387,10.883,5.477],[12.661,3390,10.913,5.5],[12.706,3398,10.946,5.53],[12.758,3406,10.981,5.549],[12.8,3421,11.01,5.542],[12.856,3423,11.06,5.536],[12.896,3426,11.089,5.535],[12.937,3423,11.12,5.537],[12.977,3420,11.15,5.534],[13.018,3417,11.19,5.526],[13.061,3416,11.225,5.516],[13.105,3417,11.258,5.541],[13.148,3422,11.283,5.547],[13.189,3430,11.311,5.569],[13.233,3437,11.349,5.579],[13.279,3444,11.382,5.582],[13.321,3445,11.414,5.601],[13.365,3445,11.431,5.636],[13.41,3443,11.471,5.648],[13.452,3446,11.501,5.672],[13.497,3445,11.536,5.695],[13.54,3444,11.566,5.712],[13.581,3444,11.547,5.73],[13.623,3445,11.516,5.741],[13.667,3445,11.481,5.762],[13.71,3444,11.443,5.758],[13.755,3443,11.417,5.777],[13.802,3441,11.393,5.816],[13.844,3441,11.389,5.855],[13.889,3445,11.395,5.896],[13.931,3455,11.431,5.89],[13.974,3468,11.463,5.893],[14.018,3476,11.445,5.929],[14.059,3488,11.467,5.935],[14.106,3499,11.511,5.924],[14.146,3507,11.549,5.914],[14.187,3521,11.574,5.915],[14.23,3536,11.598,5.919],[14.271,3543,11.621,5.91],[14.311,3549,11.642,5.878],[14.353,3554,11.673,5.852],[14.396,3557,11.704,5.823],[14.437,3564,11.72,5.817],[14.487,3571,11.758,5.8],[14.528,3576,11.795,5.787],[14.569,3581,11.828,5.763],[14.61,3585,11.858,5.741],[14.657,3587,11.899,5.723],[14.704,3588,11.932,5.699],[14.746,3587,11.968,5.682],[14.796,3586,12.002,5.647],[14.842,3584,12.034,5.613],[14.882,3583,12.066,5.59],[14.924,3580,12.08,5.555],[14.964,3577,12.096,5.518],[15.005,3575,12.113,5.482],[15.049,3572,12.121,5.45],[15.09,3571,12.139,5.414],[15.135,3571,12.156,5.379],[15.175,3572,12.183,5.35],[15.217,3572,12.213,5.323],[15.264,3572,12.247,5.294],[15.319,3572,12.284,5.255],[15.359,3572,12.318,5.234],[15.402,3572,12.342,5.2],[15.448,3572,12.366,5.161],[15.505,3573,12.392,5.11],[15.56,3574,12.417,5.065],[15.603,3574,12.445,5.037],[15.649,3574,12.475,5.005],[15.689,3575,12.504,4.983],[15.731,3576,12.539,4.964],[15.775,3577,12.569,4.94],[15.815,3579,12.599,4.913],[15.858,3579,12.631,4.886],[15.912,3579,12.661,4.842],[15.952,3580,12.689,4.816],[15.994,3580,12.71,4.782],[16.038,3580,12.733,4.745],[16.084,3581,12.762,4.711],[16.127,3583,12.792,4.681],[16.171,3583,12.824,4.654],[16.217,3583,12.853,4.626],[16.263,3586,12.863,4.64],[16.31,3587,12.862,4.597],[16.361,3589,12.883,4.55],[16.404,3591,12.889,4.514],[16.446,3591,12.892,4.478],[16.489,3593,12.891,4.443],[16.531,3595,12.892,4.405],[16.571,3596,12.903,4.367],[16.614,3599,12.912,4.325],[16.657,3600,12.921,4.288],[16.698,3601,12.919,4.255],[16.742,3602,12.926,4.213],[16.784,3604,12.934,4.179],[16.828,3605,12.945,4.139],[16.873,3607,12.953,4.131],[16.916,3609,12.976,4.096],[16.957,3613,13.005,4.07],[16.999,3621,13.031,4.041],[17.045,3627,13.057,4.007],[17.085,3630,13.058,3.999],[17.127,3633,13.092,3.995],[17.169,3634,13.126,3.978],[17.21,3637,13.142,3.942],[17.253,3641,13.175,3.916],[17.296,3647,13.206,3.89],[17.343,3654,13.215,3.851],[17.384,3662,13.251,3.834],[17.428,3666,13.293,3.82],[17.473,3675,13.32,3.813],[17.515,3680,13.358,3.799],[17.559,3686,13.399,3.802],[17.6,3695,13.436,3.809],[17.641,3701,13.466,3.821],[17.689,3708,13.499,3.819],[17.737,3716,13.541,3.801],[17.78,3722,13.579,3.783],[17.828,3731,13.624,3.773],[17.868,3742,13.66,3.774],[17.908,3747,13.699,3.774],[17.948,3759,13.734,3.76],[17.989,3765,13.772,3.751],[18.032,3772,13.81,3.751],[18.076,3781,13.848,3.736],[18.117,3791,13.881,3.743],[18.16,3799,13.891,3.776],[18.204,3804,13.923,3.795],[18.25,3817,13.924,3.817],[18.29,3827,13.959,3.837],[18.331,3839,13.996,3.854],[18.371,3850,14.034,3.86],[18.412,3859,14.074,3.856],[18.452,3869,14.103,3.873],[18.499,3878,14.141,3.874],[18.541,3880,14.131,3.875],[18.591,3883,14.17,3.899],[18.648,3887,14.214,3.933],[18.689,3890,14.244,3.958],[18.732,3891,14.27,3.988],[18.773,3891,14.293,4.019],[18.813,3891,14.303,4.057],[18.854,3892,14.318,4.094],[18.895,3896,14.339,4.129],[18.938,3900,14.36,4.166],[18.986,3907,14.391,4.201],[19.028,3915,14.422,4.229],[19.07,3919,14.454,4.254],[19.11,3929,14.459,4.289],[19.151,3935,14.462,4.319],[19.191,3939,14.481,4.352],[19.233,3942,14.518,4.372],[19.275,3943,14.542,4.404],[19.317,3946,14.569,4.425],[19.357,3947,14.608,4.434],[19.401,3951,14.644,4.453],[19.444,3955,14.676,4.466],[19.484,3962,14.709,4.485],[19.524,3968,14.738,4.503],[19.566,3975,14.777,4.506],[19.607,3983,14.812,4.524],[19.648,3989,14.847,4.531],[19.689,3994,14.876,4.558],[19.731,4000,14.903,4.571],[19.781,4003,14.948,4.592],[19.821,4010,14.972,4.613],[19.864,4016,14.998,4.645],[19.914,4023,15.035,4.669],[19.959,4028,15.056,4.693],[20.0,4035,15.089,4.718],[20.04,4039,15.114,4.742],[20.086,4047,15.146,4.768],[20.135,4060,15.18,4.796],[20.177,4068,15.212,4.812],[20.218,4072,15.244,4.822],[20.259,4075,15.275,4.839],[20.302,4078,15.29,4.875],[20.343,4080,15.316,4.903],[20.389,4081,15.344,4.936],[20.429,4081,15.372,4.963],[20.47,4080,15.399,4.99],[20.511,4081,15.432,5.011],[20.552,4080,15.457,5.041],[20.593,4079,15.49,5.064],[20.639,4078,15.524,5.094],[20.681,4078,15.551,5.125],[20.725,4082,15.582,5.15],[20.771,4085,15.611,5.18],[20.814,4089,15.631,5.21],[20.855,4094,15.653,5.241],[20.896,4099,15.665,5.273],[20.936,4109,15.679,5.304],[20.978,4122,15.678,5.339],[21.02,4131,15.69,5.379],[21.072,4140,15.711,5.412],[21.113,4146,15.739,5.439],[21.153,4150,15.766,5.458],[21.193,4153,15.793,5.475],[21.234,4157,15.793,5.513],[21.287,4159,15.793,5.565],[21.329,4160,15.81,5.601],[21.37,4157,15.833,5.631],[21.413,4153,15.84,5.664],[21.462,4152,15.827,5.657],[21.507,4151,15.853,5.624],[21.555,4153,15.884,5.588],[21.595,4161,15.908,5.557],[21.636,4167,15.926,5.521],[21.677,4173,15.953,5.491],[21.719,4180,15.972,5.455],[21.76,4192,15.995,5.422],[21.801,4199,16.001,5.387],[21.841,4209,16.022,5.356],[21.882,4222,16.032,5.327],[21.925,4234,16.055,5.297],[21.968,4246,16.075,5.268],[22.013,4263,16.086,5.241],[22.054,4277,16.102,5.221],[22.098,4293,16.131,5.213],[22.139,4305,16.151,5.2],[22.181,4319,16.17,5.178],[22.225,4337,16.194,5.157],[22.265,4357,16.212,5.134],[22.306,4381,16.238,5.109],[22.353,4398,16.26,5.086],[22.398,4415,16.296,5.077],[22.44,4432,16.332,5.06],[22.48,4446,16.371,5.057],[22.522,4466,16.394,5.037],[22.563,4474,16.408,5.04],[22.615,4480,16.457,5.032],[22.657,4487,16.491,5.026],[22.702,4498,16.503,5.065],[22.748,4511,16.525,5.099],[22.789,4525,16.55,5.108],[22.83,4547,16.571,5.106],[22.871,4572,16.598,5.082],[22.914,4591,16.626,5.064],[22.954,4606,16.66,5.073],[22.994,4615,16.695,5.086],[23.034,4618,16.728,5.088],[23.075,4622,16.765,5.08],[23.118,4624,16.795,5.051],[23.158,4627,16.828,5.035],[23.2,4634,16.86,5.02],[23.24,4643,16.88,4.99],[23.284,4653,16.917,4.976],[23.325,4663,16.932,4.957],[23.368,4678,16.972,4.958],[23.41,4691,17.012,4.962],[23.45,4702,17.051,4.958],[23.491,4705,17.065,4.974],[23.537,4713,17.094,4.962],[23.582,4719,17.128,4.957],[23.628,4729,17.158,4.927],[23.673,4739,17.188,4.895],[23.713,4746,17.22,4.876],[23.754,4763,17.246,4.857],[23.794,4778,17.279,4.849],[23.834,4785,17.309,4.834],[23.875,4792,17.339,4.809],[23.915,4798,17.353,4.823],[23.959,4803,17.363,4.817],[23.999,4817,17.398,4.812],[24.042,4825,17.436,4.801],[24.087,4835,17.476,4.788],[24.129,4841,17.503,4.76],[24.171,4846,17.532,4.745],[24.212,4853,17.559,4.723],[24.254,4858,17.576,4.722],[24.295,4861,17.592,4.699],[24.35,4860,17.635,4.668],[24.404,4861,17.68,4.641],[24.45,4864,17.716,4.627],[24.49,4873,17.753,4.626],[24.535,4887,17.79,4.603],[24.575,4896,17.82,4.578],[24.621,4901,17.837,4.583],[24.664,4902,17.861,4.576],[24.709,4898,17.888,4.587],[24.752,4887,17.929,4.589],[24.793,4871,17.964,4.598],[24.836,4861,18.005,4.593],[24.891,4856,18.06,4.586],[24.935,4849,18.102,4.578],[24.976,4846,18.135,4.559],[25.017,4843,18.163,4.529],[25.066,4837,18.201,4.501],[25.109,4832,18.241,4.485],[25.151,4826,18.279,4.471],[25.191,4819,18.313,4.488],[25.233,4808,18.35,4.503],[25.274,4797,18.389,4.512],[25.317,4787,18.431,4.511],[25.357,4771,18.46,4.504],[25.397,4753,18.493,4.52],[25.438,4734,18.529,4.52],[25.478,4720,18.557,4.503],[25.519,4706,18.593,4.506],[25.559,4700,18.631,4.5],[25.6,4695,18.669,4.502],[25.645,4692,18.712,4.501],[25.687,4688,18.751,4.489],[25.729,4684,18.792,4.494],[25.77,4679,18.832,4.497],[25.811,4669,18.869,4.506],[25.855,4657,18.908,4.499],[25.905,4643,18.954,4.509],[25.952,4624,18.98,4.491],[25.995,4610,19.02,4.489],[26.038,4595,19.05,4.477],[26.08,4579,19.08,4.461],[26.122,4563,19.117,4.457],[26.163,4555,19.156,4.449],[26.203,4546,19.192,4.436],[26.245,4541,19.223,4.413],[26.285,4536,19.252,4.389],[26.325,4534,19.291,4.382],[26.367,4532,19.33,4.387],[26.416,4527,19.377,4.383],[26.458,4523,19.416,4.374],[26.499,4522,19.457,4.37],[26.54,4519,19.496,4.368],[26.581,4514,19.534,4.367],[26.624,4512,19.576,4.368],[26.674,4508,19.623,4.364],[26.726,4501,19.644,4.368],[26.773,4494,19.691,4.368],[26.814,4485,19.731,4.364],[26.863,4481,19.78,4.361],[26.904,4479,19.82,4.366],[26.948,4477,19.862,4.364],[26.988,4475,19.899,4.367],[27.029,4472,19.938,4.358],[27.072,4466,19.98,4.352],[27.115,4460,20.02,4.346],[27.165,4457,20.07,4.348],[27.216,4458,20.121,4.346],[27.257,4459,20.159,4.354],[27.297,4461,20.197,4.356],[27.338,4462,20.22,4.366],[27.383,4462,20.262,4.38],[27.429,4455,20.302,4.394],[27.48,4448,20.347,4.415],[27.522,4444,20.387,4.426],[27.57,4439,20.434,4.434],[27.611,4432,20.473,4.437],[27.654,4425,20.506,4.44],[27.697,4418,20.545,4.445],[27.752,4414,20.6,4.444],[27.793,4411,20.64,4.447],[27.839,4409,20.685,4.448],[27.883,4407,20.727,4.46],[27.926,4403,20.765,4.449],[27.971,4397,20.804,4.434],[28.019,4392,20.845,4.414],[28.06,4385,20.881,4.399],[28.104,4381,20.924,4.393],[28.145,4378,20.962,4.388],[28.185,4374,20.985,4.385],[28.231,4371,21.028,4.381],[28.274,4371,21.068,4.377],[28.316,4371,21.106,4.392],[28.359,4372,21.144,4.401],[28.403,4372,21.185,4.393],[28.444,4369,21.217,4.369],[28.491,4364,21.255,4.355],[28.532,4360,21.288,4.371],[28.581,4355,21.333,4.383],[28.631,4351,21.381,4.393],[28.675,4349,21.425,4.4],[28.717,4348,21.465,4.401],[28.757,4347,21.502,4.414],[28.802,4345,21.542,4.427],[28.847,4342,21.585,4.438],[28.89,4338,21.625,4.433],[28.931,4336,21.665,4.437],[28.978,4335,21.712,4.435],[29.019,4336,21.751,4.429],[29.063,4337,21.791,4.416],[29.118,4337,21.845,4.408],[29.162,4336,21.885,4.42],[29.209,4335,21.931,4.421],[29.256,4333,21.977,4.419],[29.299,4330,22.017,4.43],[29.34,4328,22.05,4.451],[29.384,4325,22.09,4.468],[29.426,4323,22.13,4.475],[29.469,4321,22.169,4.481],[29.512,4320,22.211,4.491],[29.553,4319,22.248,4.504],[29.611,4319,22.306,4.508],[29.653,4319,22.347,4.512],[29.696,4320,22.387,4.523],[29.737,4320,22.425,4.533],[29.778,4320,22.455,4.557],[29.821,4319,22.497,4.555],[29.863,4318,22.536,4.569],[29.904,4317,22.574,4.569],[29.945,4316,22.608,4.59],[29.985,4316,22.641,4.605],[30.027,4314,22.679,4.62],[30.072,4312,22.717,4.628],[30.114,4310,22.755,4.642],[30.155,4308,22.79,4.655],[30.2,4307,22.834,4.66],[30.248,4308,22.881,4.669],[30.292,4310,22.921,4.681],[30.334,4311,22.958,4.701],[30.375,4310,22.996,4.712],[30.417,4309,23.035,4.722],[30.465,4308,23.08,4.736],[30.506,4308,23.117,4.754],[30.546,4308,23.15,4.775],[30.592,4307,23.19,4.789],[30.636,4305,23.222,4.816],[30.679,4301,23.26,4.822],[30.72,4297,23.296,4.841],[30.762,4293,23.331,4.858],[30.802,4289,23.364,4.875],[30.843,4283,23.389,4.903],[30.888,4280,23.423,4.931],[30.934,4277,23.458,4.959],[30.974,4274,23.497,4.965],[31.022,4272,23.54,4.983],[31.063,4268,23.571,4.99],[31.104,4260,23.604,4.986],[31.145,4255,23.641,4.975],[31.185,4249,23.677,4.986],[31.228,4247,23.716,4.999],[31.27,4243,23.756,5.005],[31.315,4239,23.798,4.999],[31.358,4233,23.835,5.016],[31.405,4229,23.868,5.046],[31.446,4227,23.908,5.055],[31.487,4226,23.947,5.064],[31.528,4226,23.984,5.078],[31.576,4227,24.031,5.077],[31.617,4227,24.071,5.078],[31.66,4224,24.111,5.082],[31.707,4222,24.157,5.082],[31.753,4219,24.199,5.092],[31.795,4218,24.228,5.122],[31.838,4216,24.266,5.14],[31.887,4212,24.314,5.14],[31.93,4210,24.353,5.156],[31.978,4207,24.397,5.167],[32.022,4202,24.436,5.175],[32.063,4199,24.472,5.195],[32.113,4197,24.516,5.219],[32.158,4195,24.553,5.24],[32.2,4194,24.582,5.251],[32.242,4191,24.621,5.253],[32.282,4188,24.657,5.27],[32.328,4184,24.698,5.288],[32.382,4180,24.745,5.313],[32.424,4177,24.78,5.335],[32.465,4169,24.816,5.351],[32.509,4163,24.858,5.361],[32.549,4158,24.896,5.373],[32.591,4152,24.933,5.387],[32.633,4146,24.963,5.415],[32.674,4140,25.0,5.425],[32.714,4130,25.036,5.444],[32.756,4119,25.073,5.459],[32.806,4109,25.121,5.471],[32.855,4102,25.167,5.483],[32.895,4097,25.204,5.481],[32.936,4095,25.243,5.475],[32.979,4092,25.277,5.452],[33.022,4089,25.306,5.425],[33.07,4084,25.35,5.409],[33.113,4072,25.352,5.392],[33.154,4064,25.364,5.358],[33.197,4062,25.399,5.335],[33.242,4066,25.434,5.307],[33.291,4071,25.47,5.275],[33.334,4077,25.51,5.264],[33.374,4079,25.528,5.236],[33.422,4077,25.571,5.224],[33.463,4074,25.598,5.195],[33.513,4071,25.633,5.162],[33.555,4068,25.672,5.148],[33.598,4067,25.689,5.114],[33.641,4066,25.725,5.108],[33.682,4063,25.745,5.075],[33.724,4062,25.777,5.048],[33.77,4060,25.812,5.02],[33.812,4056,25.829,5.017],[33.853,4051,25.858,4.991],[33.896,4047,25.879,4.954],[33.938,4044,25.898,4.919],[33.979,4043,25.93,4.894],[34.02,4043,25.966,4.875],[34.063,4042,26.003,4.858],[34.104,4040,26.033,4.83],[34.144,4038,26.065,4.806],[34.191,4036,26.102,4.78],[34.231,4034,26.138,4.762],[34.272,4030,26.176,4.747],[34.314,4026,26.209,4.724],[34.354,4021,26.223,4.688],[34.395,4017,26.244,4.653],[34.435,4015,26.253,4.614],[34.477,4015,26.264,4.575],[34.519,4017,26.285,4.54],[34.563,4020,26.324,4.518],[34.607,4023,26.359,4.493],[34.648,4026,26.39,4.465],[34.689,4025,26.416,4.435],[34.74,4023,26.44,4.394],[34.784,4022,26.43,4.353],[34.825,4019,26.46,4.332],[34.878,4015,26.494,4.301],[34.93,4014,26.518,4.267],[34.985,4010,26.564,4.24],[35.038,4006,26.609,4.215],[35.087,4002,26.641,4.179],[35.128,3999,26.674,4.155],[35.173,3997,26.712,4.133],[35.221,3997,26.747,4.105],[35.268,3998,26.776,4.071],[35.31,3999,26.784,4.03],[35.357,3999,26.819,3.999],[35.409,3999,26.855,3.963],[35.455,3998,26.886,3.93],[35.495,3998,26.912,3.899],[35.537,3997,26.937,3.866],[35.579,3997,26.959,3.832],[35.624,3995,26.986,3.795],[35.668,3991,27.015,3.767],[35.711,3986,27.034,3.728],[35.76,3980,27.056,3.687],[35.801,3973,27.073,3.655],[35.852,3969,27.101,3.613],[35.897,3964,27.137,3.587],[35.956,3958,27.179,3.551],[36.003,3958,27.222,3.534],[36.046,3955,27.262,3.519],[36.087,3954,27.253,3.514],[36.132,3954,27.275,3.495],[36.174,3950,27.305,3.466],[36.214,3949,27.33,3.441],[36.263,3945,27.337,3.4],[36.307,3945,27.377,3.39],[36.348,3944,27.416,3.381],[36.393,3942,27.46,3.383],[36.441,3939,27.506,3.389],[36.486,3936,27.549,3.395],[36.538,3934,27.601,3.39],[36.58,3933,27.639,3.375],[36.623,3931,27.677,3.355],[36.667,3930,27.713,3.333],[36.71,3928,27.747,3.307],[36.75,3925,27.779,3.287],[36.792,3924,27.813,3.266],[36.836,3923,27.844,3.24],[36.882,3922,27.878,3.211],[36.926,3922,27.912,3.184],[36.976,3921,27.944,3.155],[37.017,3923,27.981,3.138],[37.059,3924,28.016,3.115],[37.107,3924,28.054,3.086],[37.158,3924,28.087,3.051],[37.199,3925,28.119,3.026],[37.241,3925,28.157,3.012],[37.286,3926,28.19,2.996],[37.332,3928,28.206,2.986],[37.388,3927,28.259,2.973],[37.428,3928,28.297,2.961],[37.471,3928,28.323,2.929],[37.516,3927,28.344,2.891],[37.557,3926,28.382,2.886],[37.603,3927,28.405,2.864],[37.643,3928,28.438,2.849],[37.685,3930,28.47,2.825],[37.727,3930,28.511,2.817],[37.775,3928,28.556,2.803],[37.827,3926,28.606,2.794],[37.867,3924,28.64,2.773],[37.913,3923,28.682,2.76],[37.958,3921,28.723,2.742],[38.004,3920,28.764,2.723],[38.047,3918,28.805,2.711],[38.088,3917,28.845,2.703],[38.13,3916,28.883,2.69],[38.181,3915,28.934,2.685],[38.224,3914,28.976,2.681],[38.267,3914,29.011,2.657],[38.311,3914,29.045,2.633],[38.354,3914,29.085,2.615],[38.398,3914,29.12,2.6],[38.444,3914,29.158,2.575],[38.485,3916,29.166,2.536],[38.528,3917,29.19,2.503],[38.568,3920,29.207,2.467],[38.609,3922,29.22,2.429],[38.65,3924,29.24,2.396],[38.693,3925,29.25,2.355],[38.735,3926,29.257,2.336],[38.78,3929,29.283,2.303],[38.831,3931,29.319,2.269],[38.874,3936,29.349,2.242],[38.915,3940,29.379,2.215],[38.956,3944,29.41,2.189],[38.997,3951,29.44,2.162],[39.038,3954,29.472,2.14],[39.079,3959,29.512,2.133],[39.121,3964,29.551,2.125],[39.18,3970,29.607,2.117],[39.22,3973,29.646,2.104],[39.262,3973,29.682,2.084],[39.303,3973,29.708,2.053],[39.348,3975,29.728,2.013],[39.39,3975,29.743,1.974],[39.442,3975,29.773,1.959],[39.489,3976,29.815,1.949],[39.529,3977,29.854,1.956],[39.58,3976,29.905,1.958],[39.622,3849,29.945,1.967],[39.669,3849,29.991,1.975],[40.036,3847,30.119,1.635],[40.386,3846,30.003,1.965],[40.428,3840,30.01,1.949],[40.47,3837,30.024,1.91],[40.516,3959,30.062,1.886],[40.562,3954,30.102,1.869],[40.604,3956,30.133,1.849],[40.655,3958,30.18,1.85],[40.712,3960,30.232,1.855],[40.754,3961,30.271,1.842],[40.798,3957,30.306,1.818],[40.841,3953,30.345,1.799],[40.893,3951,30.385,1.767],[40.937,3946,30.407,1.779],[40.981,3938,30.449,1.773],[41.021,3931,30.487,1.766],[41.069,3924,30.533,1.772],[41.138,3917,30.591,1.787],[41.184,3913,30.609,1.77],[41.225,3906,30.646,1.78],[41.266,3901,30.684,1.79],[41.307,3898,30.724,1.796],[41.347,3894,30.763,1.792],[41.391,3893,30.807,1.787],[41.432,3892,30.847,1.78],[41.487,3891,30.901,1.772],[41.529,3891,30.94,1.759],[41.575,3891,30.981,1.738],[41.619,3890,31.017,1.713],[41.667,3885,31.054,1.686],[41.714,3876,31.088,1.661],[41.755,3868,31.12,1.636],[41.805,3859,31.167,1.619],[41.851,3851,31.205,1.593],[41.897,3843,31.244,1.59],[41.937,3839,31.277,1.598],[41.979,3833,31.316,1.606],[42.019,3830,31.356,1.606],[42.066,3824,31.4,1.613],[42.115,3820,31.447,1.62],[42.164,3817,31.495,1.628],[42.206,3816,31.535,1.64],[42.251,3816,31.579,1.651],[42.307,3817,31.63,1.673],[42.35,3818,31.669,1.689],[42.393,3821,31.709,1.695],[42.434,3822,31.747,1.711],[42.475,3824,31.771,1.741],[42.517,3824,31.794,1.773],[42.559,3823,31.833,1.786],[42.599,3820,31.87,1.8],[42.648,3817,31.916,1.8],[42.696,3815,31.963,1.799],[42.738,3814,32.004,1.797],[42.779,3814,32.045,1.797],[42.821,3814,32.085,1.792],[42.881,3813,32.144,1.788],[42.922,3812,32.184,1.79],[42.967,3810,32.227,1.789],[43.019,3807,32.278,1.794],[43.061,3805,32.317,1.809],[43.102,3803,32.356,1.82],[43.143,3802,32.395,1.83],[43.195,3802,32.444,1.847],[43.235,3802,32.468,1.852],[43.276,3805,32.507,1.86],[43.317,3808,32.541,1.878],[43.357,3810,32.577,1.894],[43.413,3814,32.621,1.914],[43.454,3817,32.659,1.926],[43.495,3818,32.699,1.937],[43.54,3818,32.743,1.939],[43.589,3816,32.79,1.929],[43.637,3810,32.836,1.915],[43.682,3805,32.879,1.903],[43.725,3802,32.92,1.894],[43.77,3800,32.963,1.881],[43.811,3799,33.003,1.872],[43.852,3800,33.04,1.855],[43.893,3801,33.079,1.847],[43.941,3803,33.125,1.833],[43.984,3803,33.166,1.822],[44.025,3801,33.205,1.812],[44.067,3798,33.243,1.806],[44.108,3797,33.283,1.806],[44.148,3798,33.323,1.801],[44.198,3799,33.371,1.792],[44.239,3801,33.407,1.776],[44.283,3800,33.447,1.757],[44.332,3798,33.495,1.762],[44.378,3795,33.538,1.754],[44.418,3794,33.578,1.755],[44.462,3793,33.62,1.744],[44.507,3792,33.661,1.729],[44.553,3792,33.705,1.718],[44.596,3791,33.747,1.707],[44.64,3790,33.791,1.7],[44.687,3789,33.836,1.693],[44.73,3787,33.879,1.688],[44.772,3786,33.919,1.685],[44.815,3785,33.952,1.66],[44.858,3786,33.992,1.674],[44.901,3784,34.033,1.672],[44.943,3783,34.076,1.674],[44.984,3782,34.116,1.667],[45.027,3781,34.156,1.652],[45.07,3780,34.195,1.637],[45.114,3779,34.236,1.625],[45.159,3778,34.278,1.611],[45.2,3777,34.319,1.605],[45.244,3778,34.36,1.594],[45.29,3779,34.404,1.597],[45.331,3781,34.435,1.59],[45.372,3783,34.475,1.593],[45.414,3783,34.514,1.589],[45.459,3782,34.557,1.579],[45.501,3781,34.596,1.585],[45.543,3780,34.636,1.591],[45.584,3779,34.676,1.592],[45.624,3779,34.715,1.586],[45.666,3779,34.755,1.577],[45.706,3780,34.794,1.585],[45.747,3783,34.829,1.604],[45.788,3789,34.867,1.614],[45.828,3799,34.901,1.61],[45.874,3809,34.923,1.593],[45.916,3814,34.947,1.58],[45.958,3820,34.977,1.562],[45.998,3826,35.014,1.56],[46.041,3834,35.036,1.554],[46.083,3842,35.076,1.553],[46.14,3846,35.125,1.567],[46.186,3850,35.144,1.564],[46.226,3852,35.183,1.576],[46.27,3850,35.226,1.582],[46.317,3849,35.27,1.596],[46.361,3847,35.311,1.59],[46.411,3846,35.359,1.589],[46.452,3849,35.398,1.588],[46.494,3850,35.437,1.578],[46.536,3849,35.466,1.552],[46.583,3849,35.488,1.551],[46.624,3846,35.526,1.559],[46.67,3843,35.572,1.562],[46.713,3842,35.614,1.564],[46.756,3841,35.657,1.561],[46.802,3840,35.701,1.552],[46.848,3840,35.747,1.549],[46.889,3839,35.786,1.547],[46.93,3838,35.827,1.544],[46.975,3837,35.87,1.539],[47.015,3836,35.91,1.536],[47.056,3835,35.949,1.52],[47.098,3833,35.986,1.508],[47.153,3832,36.037,1.489],[47.198,3832,36.079,1.472],[47.239,3831,36.116,1.457],[47.28,3830,36.15,1.436],[47.323,3829,36.188,1.417],[47.364,3828,36.221,1.399],[47.405,3826,36.258,1.383],[47.445,3824,36.295,1.367],[47.502,3823,36.345,1.339],[47.543,3821,36.381,1.324],[47.583,3819,36.416,1.307],[47.634,3817,36.462,1.286],[47.676,3814,36.503,1.276],[47.733,3813,36.558,1.259],[47.773,3813,36.597,1.256],[47.814,3814,36.634,1.24],[47.854,3815,36.67,1.223],[47.895,3816,36.7,1.197],[47.94,3816,36.74,1.185],[47.983,3815,36.778,1.165],[48.023,3811,36.813,1.148],[48.065,3809,36.853,1.137],[48.106,3806,36.892,1.128],[48.147,3803,36.9,1.106],[48.187,3800,36.934,1.096],[48.228,3799,36.971,1.082],[48.27,3798,37.006,1.06],[48.312,3796,37.036,1.033],[48.352,3793,37.064,1.008],[48.399,3788,37.098,1.027],[48.44,3784,37.136,1.021],[48.48,3781,37.173,1.017],[48.52,3778,37.2,0.99],[48.564,3775,37.233,0.966],[48.605,3772,37.261,0.938],[48.648,3770,37.297,0.915],[48.695,3764,37.333,0.904],[48.738,3759,37.35,0.866],[48.779,3753,37.371,0.832],[48.82,3746,37.401,0.829],[48.869,3741,37.436,0.854],[48.916,3741,37.468,0.886],[48.956,3744,37.485,0.921],[48.999,3750,37.512,0.952],[49.04,3755,37.544,0.973],[49.084,3761,37.577,1.001],[49.125,3767,37.607,1.013],[49.166,3774,37.637,1.031],[49.206,3782,37.674,1.033],[49.247,3791,37.699,1.058],[49.287,3804,37.721,1.08],[49.327,3810,37.693,1.108],[49.37,3816,37.687,1.135],[49.411,3819,37.722,1.153]],"wps":[{"n":"Iron bridge","d":0.001,"e":2495,"day":1,"m":470},{"n":"Water source","d":0.655,"e":2544,"day":1,"m":478},{"n":"Hydel power project","d":1.63,"e":2638,"day":1,"m":492},{"n":"Water source","d":1.938,"e":2688,"day":1,"m":496},{"n":"Stone crusher unit","d":2.049,"e":2670,"day":1,"m":497},{"n":"Small stream","d":2.321,"e":2716,"day":1,"m":501},{"n":"Bridge","d":2.657,"e":2719,"day":1,"m":506},{"n":"Birch and Spruce section","d":2.984,"e":2756,"day":1,"m":511},{"n":"Stream crossing","d":4.014,"e":2873,"day":1,"m":527},{"n":"Under construction power project","d":4.099,"e":2873,"day":1,"m":530},{"n":"Wooden bridge","d":4.494,"e":2890,"day":1,"m":534},{"n":"Power project shelter point - last point where you'll find civilization","d":4.571,"e":2893,"day":1,"m":536},{"n":"Forest section starts","d":4.724,"e":2900,"day":1,"m":545},{"n":"Water source","d":5.267,"e":2936,"day":1,"m":554},{"n":"Wooden bridge crossing","d":5.372,"e":2953,"day":1,"m":556},{"n":"Gyare Jungle","d":5.417,"e":2944,"day":1,"m":557},{"n":"Jamun tree ( black )","d":6.11,"e":3032,"day":1,"m":568},{"n":"Last network point","d":6.43,"e":3129,"day":1,"m":587},{"n":"Stream crossing","d":6.933,"e":3116,"day":1,"m":601},{"n":"Cave","d":7.003,"e":3125,"day":1,"m":603},{"n":"Dhangyabe","d":7.425,"e":3156,"day":1,"m":610},{"n":"Open clearing","d":7.498,"e":3168,"day":1,"m":611},{"n":"Blue pine cone","d":7.755,"e":3193,"day":1,"m":616},{"n":"Rhodos","d":8.097,"e":3203,"day":1,"m":622},{"n":"Forest section ends","d":8.154,"e":3201,"day":1,"m":625},{"n":"Herbal water source","d":8.189,"e":3196,"day":1,"m":626},{"n":"Steep section","d":8.466,"e":3246,"day":1,"m":632},{"n":"Bouldering point","d":9.803,"e":3276,"day":1,"m":650},{"n":"Mulling campsite","d":10.064,"e":3277,"day":1,"m":675},{"n":"Water source","d":10.808,"e":3340,"day":1,"m":685},{"n":"Paradise for stone collectors","d":11.097,"e":3321,"day":1,"m":689},{"n":"View point","d":12.618,"e":3390,"day":1,"m":712},{"n":"Birch tree patch","d":12.96,"e":3419,"day":1,"m":723},{"n":"Rock climbing patch","d":13.061,"e":3411,"day":1,"m":725},{"n":"Boulder zone","d":13.163,"e":3430,"day":1,"m":727},{"n":"Water source","d":13.319,"e":3448,"day":1,"m":729},{"n":"Underground river crossing","d":13.542,"e":3437,"day":1,"m":735},{"n":"Steep ascent","d":14.11,"e":3500,"day":1,"m":772},{"n":"Stream crossing","d":15.924,"e":3579,"day":1,"m":802},{"n":"Karah campsite","d":16.211,"e":3582,"day":1,"m":805},{"n":"Stream crossing - bare feet","d":16.462,"e":3594,"day":1,"m":827},{"n":"Stream crossing - current is strong","d":16.649,"e":3602,"day":1,"m":833},{"n":"View point - Tia Valley to your Right","d":17.384,"e":3660,"day":1,"m":874},{"n":"Snow bridge","d":18.092,"e":3784,"day":1,"m":906},{"n":"Waterfall - to your Right","d":18.266,"e":3824,"day":1,"m":914},{"n":"Water source","d":18.483,"e":3923,"day":1,"m":923},{"n":"Water source","d":19.09,"e":3924,"day":1,"m":938},{"n":"Water source","d":19.598,"e":3983,"day":1,"m":983},{"n":"Stream crossing","d":19.803,"e":4008,"day":1,"m":995},{"n":"Boulder zone","d":19.984,"e":4030,"day":1,"m":1006},{"n":"Stream crossing","d":20.31,"e":4078,"day":1,"m":1018},{"n":"Stream crossing","d":20.686,"e":4077,"day":1,"m":1024},{"n":"Stream crossing","d":21.162,"e":4150,"day":1,"m":1048},{"n":"Phutsirang campsite","d":21.413,"e":4158,"day":1,"m":1054},{"n":"Boulder zone","d":21.801,"e":4200,"day":2,"m":312},{"n":"Stream crossing","d":21.848,"e":4209,"day":2,"m":313},{"n":"Loose rocks","d":22.333,"e":4394,"day":2,"m":343},{"n":"Rockfall zone","d":22.597,"e":4470,"day":2,"m":369},{"n":"Water source - potable","d":23.165,"e":4625,"day":2,"m":408},{"n":"Boulder zone","d":23.674,"e":4740,"day":2,"m":442},{"n":"Snow patch","d":23.858,"e":4790,"day":2,"m":453},{"n":"Pin Bhaba Summit","d":24.602,"e":4907,"day":2,"m":503},{"n":"Snow patch","d":24.763,"e":4919,"day":2,"m":541},{"n":"Loose rocks","d":25.367,"e":4769,"day":2,"m":551},{"n":"Water source","d":25.6,"e":4695,"day":2,"m":556},{"n":"Water source","d":25.891,"e":4654,"day":2,"m":561},{"n":"Rockfall zone","d":25.905,"e":4649,"day":2,"m":562},{"n":"Stream crossing","d":26.284,"e":4540,"day":2,"m":567},{"n":"Moraine section","d":26.359,"e":4530,"day":2,"m":568},{"n":"Pin River","d":27.309,"e":4467,"day":2,"m":589},{"n":"Boulder zone","d":27.901,"e":4409,"day":2,"m":596},{"n":"Pebble zone","d":28.519,"e":4361,"day":2,"m":605},{"n":"Red stones","d":29.37,"e":4325,"day":2,"m":614},{"n":"Flat walk on the pebbles","d":30.054,"e":4317,"day":2,"m":623},{"n":"Boulder zone","d":30.573,"e":4310,"day":2,"m":630},{"n":"Loose rocks - ankle injury prone","d":32.012,"e":4204,"day":2,"m":657},{"n":"Mangruenese campsite","d":32.189,"e":4233,"day":2,"m":665},{"n":"Boulder zone","d":32.872,"e":4099,"day":2,"m":674},{"n":"Cut for Pin Parvati","d":33.782,"e":4062,"day":2,"m":689},{"n":"Bwaldar meadows","d":35.685,"e":3994,"day":2,"m":714},{"n":"Bwaldar campsite","d":35.936,"e":3958,"day":2,"m":718},{"n":"Wooden bridge crossing over Bwaldar River","d":36.265,"e":3942,"day":2,"m":757},{"n":"Pause a view","d":36.917,"e":3921,"day":2,"m":766},{"n":"Wooden bridge crossing","d":37.593,"e":3921,"day":2,"m":784},{"n":"Yak grazing area","d":38.422,"e":3913,"day":2,"m":796},{"n":"Water source","d":40.572,"e":3957,"day":2,"m":836},{"n":"Stream crossing - bare feet","d":40.854,"e":3948,"day":2,"m":842},{"n":"Water source","d":41.879,"e":3844,"day":2,"m":863},{"n":"Red stone deposits","d":42.549,"e":3816,"day":2,"m":873},{"n":"Stream crossing","d":44.042,"e":3800,"day":2,"m":893},{"n":"Village road","d":46.156,"e":3874,"day":2,"m":943},{"n":"From here you get the first glimpse of Mudh village","d":46.78,"e":3840,"day":2,"m":951},{"n":"Green peas farm lands","d":47.041,"e":3830,"day":2,"m":955},{"n":"Bridge crossing","d":48.8,"e":3750,"day":2,"m":978},{"n":"Temple","d":49.37,"e":3817,"day":2,"m":1002},{"n":"Mudh","d":49.411,"e":3818,"day":2,"m":1003}]};
+
 const $ = id => document.getElementById(id);
-const pick = a => a[Math.floor(Math.random() * a.length)];
-const uid = () => Math.random().toString(36).slice(2, 9);
-const LKEY = "nut-tasks-v2";
-
-function seed(){
-  const inHour = new Date(Date.now() + 3600e3);
-  return { tasks: [
-    { id: uid(), text: "Take Nut for an evening walk (example)", due: toLocal(inHour), done: false, reminded: false },
-    { id: uid(), text: "Finish homework (example)", due: null, done: false, reminded: false }
-  ], chat: [] };
-}
-function toLocal(d){ const p = n => String(n).padStart(2, "0"); return `${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())}T${p(d.getHours())}:${p(d.getMinutes())}`; }
-function fmtDue(s){
-  const d = new Date(s); if (isNaN(d)) return "";
-  const now = new Date(), tm = d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" });
-  const day = d.toDateString() === now.toDateString() ? "today" :
-    d.toDateString() === new Date(Date.now() + 864e5).toDateString() ? "tomorrow" :
-    d.toLocaleDateString([], { weekday: "short", day: "numeric", month: "short" });
-  return `${day}, ${tm}`;
-}
-const isLate = t => !t.done && t.due && new Date(t.due) < new Date();
-
-let S;
-try { S = JSON.parse(localStorage.getItem(LKEY)); } catch { S = null; }
-if (!S || !Array.isArray(S.tasks)) S = seed();
-if (!Array.isArray(S.chat)) S.chat = [];
-
-// ---- saving: browser always, plus Ayush's private store when available ----
-let docRef = null, saveTimer = null, writing = Promise.resolve();
-function save(){
-  try { localStorage.setItem(LKEY, JSON.stringify(S)); } catch {}
-  if (!docRef) return;
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(() => {
-    const snap = JSON.parse(JSON.stringify({ tasks: S.tasks, chat: S.chat.slice(-16), updated: new Date().toISOString() }));
-    writing = writing.then(() => docRef.set(snap)).then(() => { $("saved").textContent = "Saved to your account"; })
-      .catch(() => { $("saved").textContent = "Saved in this browser"; });
-  }, 700);
-}
-
-// ---- rendering ----
-function render(){
-  const list = $("list"); list.innerHTML = "";
-  const order = [...S.tasks].sort((a, b) => (a.done - b.done) || ((a.due ? new Date(a.due) : Infinity) - (b.due ? new Date(b.due) : Infinity)));
-  if (!order.length){ const li = document.createElement("li"); li.className = "empty"; li.textContent = "No tasks. Nut is bored bored bored."; list.append(li); }
-  for (const t of order){
-    const li = document.createElement("li");
-    li.className = "task" + (t.done ? " done" : "") + (isLate(t) ? " late" : "");
-    const cb = document.createElement("input"); cb.type = "checkbox"; cb.className = "check"; cb.checked = t.done; cb.id = "t_" + t.id;
-    cb.setAttribute("aria-label", "Done: " + t.text);
-    cb.addEventListener("change", () => setDone(t.id, cb.checked, true));
-    const txt = document.createElement("label"); txt.htmlFor = cb.id;
-    const s = document.createElement("span"); s.className = "ttext"; s.textContent = t.text; txt.append(s);
-    if (t.due){ const d = document.createElement("span"); d.className = "due"; d.textContent = (isLate(t) ? "late! was " : "") + fmtDue(t.due); txt.append(d); }
-    const del = document.createElement("button"); del.className = "del"; del.type = "button"; del.textContent = "×"; del.setAttribute("aria-label", "Remove " + t.text);
-    del.addEventListener("click", () => { S.tasks = S.tasks.filter(x => x.id !== t.id); render(); save(); });
-    li.append(cb, txt, del); list.append(li);
-  }
-  const open = S.tasks.filter(t => !t.done).length, late = S.tasks.filter(isLate).length, done = S.tasks.filter(t => t.done).length;
-  $("tally").innerHTML = `<b>${open}</b> to do · <b>${done}</b> done` + (late ? ` · <b style="color:#b8463c">${late}</b> late` : "");
-}
-// ---- Nut comes alive: roaming, tail, blinking, yawning ----
-const yard = $("yard"), nut = $("nut"), bubble = $("bubble"), head = $("head");
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const HEADS = { open: "head.webp", blink: "head_blink.webp", yawn: "head_yawn.webp" };
-Object.values(HEADS).forEach(src => { const i = new Image(); i.src = src; });
-let x = 0, flipped = false, walkT = null, yawning = false, lastImportant = 0, excitedT = null;
-const nutW = () => nut.offsetWidth;
-const maxX = () => Math.max(0, yard.clientWidth - nutW() * 1.25);
-function placeBubble(){
-  const W = yard.clientWidth, bw = bubble.offsetWidth;
-  const faceX = x + nutW() * (flipped ? 0.36 : 0.64);
-  const left = Math.max(4, Math.min(W - bw - 4, faceX - bw / 2));
-  bubble.style.left = left + "px";
-  bubble.style.setProperty("--tip", Math.max(26, Math.min(bw - 26, faceX - left)) + "px");
-  const nutTop = yard.clientHeight - 14 - nut.offsetHeight;
-  bubble.style.top = Math.max(4, nutTop - bubble.offsetHeight - 14) + "px";
-}
-function setMove(sec){ nut.style.setProperty("--move", sec + "s"); bubble.style.setProperty("--move", sec + "s"); }
-function moveTo(nx, speed = 120){
-  nx = Math.max(0, Math.min(maxX(), nx));
-  const dist = Math.abs(nx - x); if (dist < 12 || yawning) return;
-  const dur = dist / speed;
-  flipped = nx < x; nut.classList.toggle("flip", flipped);
-  setMove(dur); nut.classList.add("walking");
-  x = nx; nut.style.left = x + "px"; placeBubble();
-  clearTimeout(walkT);
-  walkT = setTimeout(() => { nut.classList.remove("walking"); setMove(0); }, dur * 1000);
-}
-function wander(){
-  if (!reduce && !document.hidden && !yawning && Math.random() < 0.7){
-    // sometimes a short sniff-step, sometimes a long trot
-    const nx = Math.random() < 0.4 ? x + (Math.random() < .5 ? -1 : 1) * (40 + Math.random() * 80) : Math.random() * maxX();
-    moveTo(nx, 90 + Math.random() * 70);
-  }
-  setTimeout(wander, 3500 + Math.random() * 6500);
-}
-function blink(){
-  if (!yawning){ head.src = HEADS.blink; setTimeout(() => { if (!yawning) head.src = HEADS.open; }, 150); }
-  setTimeout(blink, 2200 + Math.random() * 4500);
-}
-function tilt(){
-  if (!yawning && !reduce){
-    const c = Math.random() < .5 ? "tilt-l" : "tilt-r";
-    head.classList.add(c); setTimeout(() => head.classList.remove(c), 1400 + Math.random() * 900);
-  }
-  setTimeout(tilt, 7000 + Math.random() * 9000);
-}
-function yawn(){
-  if (!document.hidden && !nut.classList.contains("walking")){
-    yawning = true; nut.classList.add("sleepy");
-    head.src = HEADS.blink;
-    setTimeout(() => { head.src = HEADS.yawn; head.classList.add("yawning"); }, 250);
-    setTimeout(() => { head.classList.remove("yawning"); head.src = HEADS.blink; }, 2300);
-    setTimeout(() => { head.src = HEADS.open; yawning = false; nut.classList.remove("sleepy"); }, 2600);
-    if (Date.now() - lastImportant > 25000 && Math.random() < 0.45)
-      setTimeout(() => say(pick(["*yaaawn* Nut sleepy sleepy. But Nut still watch task. Always.",
-        "*big yawn* Nap soon, question? After Ayush finish task.", "*yaaawn* Boring boring. Ayush do task, then play."]), null, false), 600);
-  }
-  setTimeout(yawn, 22000 + Math.random() * 26000);
-}
-function excite(ms = 4000){
-  nut.classList.add("excited"); clearTimeout(excitedT);
-  excitedT = setTimeout(() => nut.classList.remove("excited"), ms);
-}
-function hop(){ nut.classList.remove("hop"); void nut.offsetWidth; nut.classList.add("hop"); setTimeout(() => nut.classList.remove("hop"), 1200); }
-function petNut(){
-  hop(); excite();
-  if (Date.now() - lastImportant > 4000)
-    say(pick(["Ayush pet Nut! Happy happy happy.", "Scratch ear, question? Yes yes yes. Good human.", "Nut love pet. Now Ayush love task too, question?"]), null, false);
-}
-nut.addEventListener("click", petNut);
-nut.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " "){ e.preventDefault(); petNut(); } });
-addEventListener("resize", () => { x = Math.min(x, maxX()); setMove(0); nut.style.left = x + "px"; placeBubble(); });
 
-function say(text, said, important = true){
-  if (important) lastImportant = Date.now();
-  $("line").textContent = text;
-  $("said").hidden = !said; if (said) $("said").textContent = "Ayush: " + said;
-  bubble.classList.remove("wiggle"); void bubble.offsetWidth; bubble.classList.add("wiggle");
-  requestAnimationFrame(placeBubble);
-  excite(2500);
-}
-function celebrate(){
-  hop(); excite(6000);
-  const s = document.createElement("span"); s.className = "stamp"; s.textContent = pick(["amaze!", "good good!", "yes yes!"]);
-  s.style.left = (x + nutW() * 0.4) + "px"; s.style.top = "38%"; yard.append(s); setTimeout(() => s.remove(), 1500);
-}
+/* ================= CFD background: D2Q9 lattice Boltzmann ================= */
+const Flow = (() => {
+  const cv = $("flow"), ctx = cv.getContext("2d");
+  const off = document.createElement("canvas"), octx = off.getContext("2d");
+  const CX = [0,1,0,-1,0,1,-1,-1,1], CY = [0,0,1,0,-1,1,1,-1,-1];
+  const W9 = [4/9,1/9,1/9,1/9,1/9,1/36,1/36,1/36,1/36], OPP = [0,3,4,1,2,7,8,5,6];
+  const U0 = 0.1, NU = 0.016, OMEGA = 1 / (3 * NU + 0.5);
+  let W, H, N, f, g, bar, ux, uy, img, running = false, raf = 0, stir = null, cyl = [], warm = 0;
 
-// ---- task actions (used by the page and by Nut's brain) ----
-function addTask(text, due){
-  text = String(text || "").trim().slice(0, 160); if (!text) return null;
-  let d = null;
-  if (due){ const x = new Date(due); if (!isNaN(x)) d = toLocal(x); }
-  const t = { id: uid(), text, due: d, done: false, reminded: false };
-  S.tasks.push(t); render(); save(); return t;
-}
-function setDone(id, done, fromClick){
-  const t = S.tasks.find(x => x.id === id); if (!t) return null;
-  t.done = !!done; render(); save();
-  if (done && fromClick){
-    celebrate();
-    const left = S.tasks.filter(x => !x.done).length;
-    say(left ? pick([`Amaze amaze amaze! "${t.text}" is done. Ayush good good good. ${left} more task, question?`,
-                     `Done! Ayush is fast fast fast. Nut proud. Next task now, question?`])
-             : `All tasks done! Amaze amaze amaze! Ayush best human. Now walk with Nut, question?`);
-  } else if (!done && fromClick) say(`"${t.text}" not done after all, question? Is okay. Nut watch it again.`);
-  return t;
-}
-
-$("addForm").addEventListener("submit", e => {
-  e.preventDefault();
-  const t = addTask($("newTask").value, $("newDue").value);
-  if (!t) return;
-  $("newTask").value = ""; $("newDue").value = "";
-  say(t.due ? `Nut remember: "${t.text}". At ${fmtDue(t.due)} Nut bark bark bark. Promise.` : `Nut write it down: "${t.text}". Ayush do soon, question?`);
-});
-$("clearDone").addEventListener("click", () => {
-  const n = S.tasks.filter(t => t.done).length; if (!n) { say("No finished tasks yet. Ayush work first, question?"); return; }
-  S.tasks = S.tasks.filter(t => !t.done); render(); save(); say(`${n} finished task gone. Clean clean clean. Good.`);
-});
-
-// ---- reminders ----
-function checkReminders(){
-  const due = S.tasks.filter(t => isLate(t) && !t.reminded);
-  if (due.length){
-    due.forEach(t => t.reminded = true); save();
-    const t = due[0];
-    say(due.length > 1 ? `Ayush! ${due.length} tasks are time now! "${t.text}" and more. Ayush do, question? Nut wait wait wait.`
-                       : `Ayush! Time time time! "${t.text}". Ayush do now, question?`);
-    flashTitle();
-  }
-  render();
-}
-let flashing = null;
-function flashTitle(){
-  if (flashing || !document.hidden) return;
-  const base = document.title; let on = false;
-  flashing = setInterval(() => { document.title = (on = !on) ? "Woof! Task time" : base; }, 1200);
-  const stop = () => { if (!document.hidden){ clearInterval(flashing); flashing = null; document.title = base; document.removeEventListener("visibilitychange", stop); } };
-  document.addEventListener("visibilitychange", stop);
-}
-setInterval(checkReminders, 20000);
-
-// ---- Nut's brain ----
-let sample = null;
-const PERSONA = () => `You are Nut, the pet dog of a person named Ayush. You live on Ayush's task page and your job is to help him get his tasks done.
-
-How you talk (this is essential):
-- Broken, simple English. Short sentences. Drop "the", "a" and most helper verbs. Example shapes: "Ayush finish homework, question?", "Nut not understand. Explain.", "Task is done. Good."
-- When you ask a question, say it as a statement and end with ", question?" Example: "Ayush do task today, question?"
-- Repeat a word three times for strong feeling: "amaze amaze amaze", "happy happy happy", "bad bad bad", "sad sad", "fast fast fast".
-- Refer to yourself as "Nut". Call him "Ayush" or "friend".
-- 1-3 short sentences. You are a loving, loyal, curious dog: you like walks, fetch, treats, naps, and you distrust squirrels. Encouraging, a little bossy about tasks, never mean. Family friendly. Never say you are an AI.
-
-You can change Ayush's task list with your tools. If Ayush asks you to remember, add, remind, finish, tick off or remove something, use the tools, then confirm in your voice. When he gives a time like "6pm" or "in 2 hours" or "tomorrow morning", convert it to a full local date-time "YYYY-MM-DDTHH:MM" using the current time below. Never invent tasks he did not ask for.
-
-Current local time: ${toLocal(new Date())} (${new Date().toLocaleDateString([], { weekday: "long" })}).
-Ayush's tasks right now (id | text | due | status):
-${S.tasks.length ? S.tasks.map(t => `${t.id} | ${t.text} | ${t.due || "no time"} | ${t.done ? "done" : isLate(t) ? "LATE" : "to do"}`).join("\n") : "(none)"}`;
-
-const TOOLS = [
-  { name: "add_task", description: "Add a task to Ayush's list. Returns the new task.",
-    inputSchema: { type: "object", properties: { text: { type: "string", description: "Short task text" }, due: { type: "string", description: "Optional local date-time YYYY-MM-DDTHH:MM for the reminder" } }, required: ["text"] },
-    execute: ({ text, due }) => { const t = addTask(text, due); if (!t) throw new Error("empty task"); return { id: t.id, text: t.text, due: t.due }; } },
-  { name: "complete_task", description: "Mark a task done (or not done) by its id. Returns the task.",
-    inputSchema: { type: "object", properties: { id: { type: "string" }, done: { type: "boolean", description: "false to un-tick" } }, required: ["id"] },
-    execute: ({ id, done }) => { const t = setDone(String(id), done !== false, false); if (!t) throw new Error("no task with that id"); if (t.done) celebrate(); return { id: t.id, done: t.done }; } },
-  { name: "remove_task", description: "Delete a task by its id.",
-    inputSchema: { type: "object", properties: { id: { type: "string" } }, required: ["id"] },
-    execute: ({ id }) => { const n = S.tasks.length; S.tasks = S.tasks.filter(t => t.id !== String(id)); render(); save(); if (S.tasks.length === n) throw new Error("no task with that id"); return { removed: String(id) }; } }
-];
-
-function offline(text){
-  const t = text.toLowerCase();
-  const open = S.tasks.filter(x => !x.done), late = S.tasks.filter(isLate);
-  if (/^(remind me to|add|remember)\s+/.test(t)){
-    const task = addTask(text.replace(/^(remind me to|add|remember)\s+/i, ""));
-    return `Nut write it: "${task.text}". Add a time in notebook, Nut bark at right time.`;
-  }
-  if (/task|todo|to do|what.*(do|left)/.test(t)) return open.length ? `${open.length} task left. First: "${open[0].text}". Ayush start now, question?` : "No task left! Amaze amaze amaze. Walk now, question?";
-  if (/walk|play|fetch|ball/.test(t)) return late.length ? "Walk after task. Task first. Nut is strict strict strict." : "Walk! Walk walk walk! Nut get leash.";
-  if (/tired|sad|stress|hard/.test(t)) return "Ayush sad, question? Nut sit close. Do one small task. Then rest. Is good plan.";
-  if (/love|good boy|miss/.test(t)) return "Nut love Ayush too. Happy happy happy. Tail go fast fast fast.";
-  if (/done|finish/.test(t)) return "Ayush finish task, question? Tick box in notebook. Then Nut celebrate.";
-  return pick(["Nut not understand. Explain, question?", "Woof. Nut listen. Ayush do task now, question?", "Hmm. Interesting interesting. Tell Nut more."]);
-}
-
-let busy = false;
-async function talk(text){
-  text = text.trim(); if (!text || busy) return;
-  busy = true; $("talkBtn").disabled = true;
-  S.chat.push({ role: "user", content: text });
-  say("…", text);
-  let reply;
-  if (!sample) reply = offline(text);
-  else {
-    const turns = S.chat.slice(-10);
-    while (turns.length && turns[0].role !== "user") turns.shift();
-    try {
-      $("line").textContent = "*sniff sniff* Nut think…";
-      const r = await sample([{ role: "user", content: PERSONA() }, { role: "assistant", content: "Nut understand. Nut ready." }, ...turns],
-        { cache: false, modelTier: "quick", tools: TOOLS, onText: ({ text }) => { $("line").textContent = text; placeBubble(); } });
-      reply = (r.text || "").trim() || "Woof.";
-    } catch (e) {
-      if (e && e.code === "not_granted") { sample = null; $("hint").textContent = "Nut is using his simple brain. He still adds tasks if you say \"remind me to…\"."; }
-      reply = (e && e.text && e.text.trim()) || offline(text);
+  function eq(i, k, rho, u, v){
+    const usq = 1.5 * (u*u + v*v);
+    for (let q = 0; q < 9; q++){
+      const cu = 3 * (CX[q]*u + CY[q]*v);
+      f[q*N + i] = W9[q] * rho * (1 + cu + 0.5*cu*cu - usq);
     }
   }
-  S.chat.push({ role: "assistant", content: reply });
-  if (S.chat.length > 30) S.chat = S.chat.slice(-30);
-  say(reply, text); save();
-  busy = false; $("talkBtn").disabled = false; $("talk").focus();
-}
-$("talkForm").addEventListener("submit", e => { e.preventDefault(); const v = $("talk").value; $("talk").value = ""; talk(v); });
-
-// ---- greeting ----
-function greet(){
-  const h = new Date().getHours(), late = S.tasks.filter(isLate), open = S.tasks.filter(t => !t.done);
-  const hello = h < 12 ? "Morning, Ayush!" : h < 17 ? "Ayush is here!" : "Evening, Ayush!";
-  if (late.length) say(`${hello} Bad bad bad. ${late.length} task is late. "${late[0].text}". Ayush do now, question?`);
-  else if (open.length) say(`${hello} Happy happy happy. ${open.length} task today. Nut watch clock for Ayush.`);
-  else say(`${hello} No task. Amaze. Ayush tell Nut what to do today, question?`);
-}
-
-x = maxX() * 0.35; nut.style.left = x + "px";
-render(); greet(); checkReminders(); placeBubble();
-setTimeout(wander, 2500); setTimeout(blink, 1800); setTimeout(tilt, 6000); setTimeout(yawn, 12000);
-
-(async () => {
-  try { sample = await window.claude?.use?.("sample") ?? null; } catch { sample = null; }
-  if (!sample) $("hint").textContent = "Nut is using his simple brain. He still adds tasks if you say \"remind me to…\".";
+  function setup(){
+    const aw = innerWidth, ah = innerHeight, cells = 36000;
+    W = Math.max(80, Math.round(Math.sqrt(cells * aw / ah)));
+    H = Math.max(60, Math.round(cells / W));
+    N = W * H;
+    f = new Float32Array(9*N); g = new Float32Array(9*N);
+    bar = new Uint8Array(N); ux = new Float32Array(N); uy = new Float32Array(N);
+    for (let i = 0; i < N; i++) eq(i, 0, 1, U0, 0);
+    cyl = [];
+    const r = Math.max(5, Math.round(Math.min(W, H) * 0.07));
+    const n = Math.max(1, Math.round(H / W * 1.3));
+    for (let k = 0; k < n; k++){
+      const cx = Math.round(W * (n > 1 && k % 2 ? 0.34 : 0.22)), cy = Math.round(H * (k + 0.5) / n) + 1;
+      for (let y = cy - r; y <= cy + r; y++) for (let x = cx - r; x <= cx + r; x++)
+        if ((x-cx)**2 + (y-cy)**2 <= r*r && x > 0 && y > 0 && x < W-1 && y < H-1) bar[y*W + x] = 1;
+      cyl.push({ cx, cy, r });
+      // nudge the wake off-symmetry so it starts shedding sooner
+      for (let y = cy; y < Math.min(H-1, cy + 2*r); y++) for (let x = cx + r; x < Math.min(W-1, cx + 6*r); x++) eq(y*W + x, 0, 1, U0 * 0.6, 0.03);
+    }
+    off.width = W; off.height = H; img = octx.createImageData(W, H);
+    resizeCanvas();
+  }
+  function resizeCanvas(){
+    const dpr = Math.min(devicePixelRatio || 1, 2);
+    cv.width = Math.round(innerWidth * dpr); cv.height = Math.round(innerHeight * dpr);
+  }
+  function step(){
+    // collide
+    for (let i = 0; i < N; i++){
+      if (bar[i]) continue;
+      let rho = 0, mx = 0, my = 0;
+      for (let q = 0; q < 9; q++){ const v = f[q*N+i]; rho += v; mx += CX[q]*v; my += CY[q]*v; }
+      const u = mx / rho, v = my / rho; ux[i] = u; uy[i] = v;
+      const usq = 1.5 * (u*u + v*v);
+      for (let q = 0; q < 9; q++){
+        const cu = 3 * (CX[q]*u + CY[q]*v);
+        const fe = W9[q] * rho * (1 + cu + 0.5*cu*cu - usq);
+        f[q*N+i] += OMEGA * (fe - f[q*N+i]);
+      }
+    }
+    // stream with bounce-back
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++){
+      const i = y*W + x; if (bar[i]) continue;
+      for (let q = 0; q < 9; q++){
+        const nx = x + CX[q], ny = y + CY[q];
+        if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+        const j = ny * W + nx;
+        if (bar[j]) g[OPP[q]*N + i] = f[q*N + i];
+        else g[q*N + j] = f[q*N + i];
+      }
+    }
+    const t = f; f = g; g = t;
+    // free-stream edges
+    for (let x = 0; x < W; x++){ eq(x, 0, 1, U0, 0); eq((H-1)*W + x, 0, 1, U0, 0); }
+    for (let y = 0; y < H; y++){ eq(y*W, 0, 1, U0, 0); eq(y*W + W-1, 0, 1, U0, 0); }
+    if (stir){
+      const { x: sx, y: sy, u, v } = stir, R = 3;
+      for (let y = sy - R; y <= sy + R; y++) for (let x = sx - R; x <= sx + R; x++){
+        if (x < 1 || y < 1 || x >= W-1 || y >= H-1) continue;
+        const i = y*W + x; if (!bar[i]) eq(i, 0, 1, u, v);
+      }
+    }
+  }
+  // colours: glacier (clockwise) · night · marigold (anticlockwise)
+  const NIGHT = [11,22,33], COLD = [92,198,201], WARM = [242,163,58], BAR = [233,238,241];
+  function draw(){
+    const d = img.data;
+    for (let y = 0; y < H; y++) for (let x = 0; x < W; x++){
+      const i = y*W + x, p = i*4;
+      if (bar[i]){ d[p]=NIGHT[0]; d[p+1]=NIGHT[1]; d[p+2]=NIGHT[2]; d[p+3]=255; continue; }
+      let c = 0;
+      if (x > 0 && y > 0 && x < W-1 && y < H-1) c = (uy[i+1] - uy[i-1]) - (ux[i+W] - ux[i-W]);
+      let tt = Math.max(-1, Math.min(1, c * 22));
+      const col = tt < 0 ? COLD : WARM, a = Math.pow(Math.abs(tt), 0.75);
+      const sp = Math.min(1, Math.hypot(ux[i], uy[i]) / (U0 * 1.6)) * 0.14;
+      d[p]   = NIGHT[0] + (col[0]-NIGHT[0])*a + 40*sp;
+      d[p+1] = NIGHT[1] + (col[1]-NIGHT[1])*a + 60*sp;
+      d[p+2] = NIGHT[2] + (col[2]-NIGHT[2])*a + 80*sp;
+      d[p+3] = 255;
+    }
+    octx.putImageData(img, 0, 0);
+    ctx.imageSmoothingEnabled = true; ctx.imageSmoothingQuality = "high";
+    // cover-fit
+    const s = Math.max(cv.width / W, cv.height / H), dw = W*s, dh = H*s;
+    const ox = (cv.width - dw)/2, oy = (cv.height - dh)/2;
+    ctx.drawImage(off, ox, oy, dw, dh);
+    ctx.fillStyle = "rgb(" + BAR + ")";
+    for (const c of cyl){ ctx.beginPath(); ctx.arc(ox + (c.cx + .5)*s, oy + (c.cy + .5)*s, (c.r + .3)*s, 0, 7); ctx.fill(); }
+  }
+  function loop(){
+    if (!running) return;
+    if (!document.hidden){ const n = warm > 0 ? 24 : 5; warm -= n; for (let k = 0; k < n; k++) step(); draw(); }
+    raf = requestAnimationFrame(loop);
+  }
+  function toCell(e){
+    const s = Math.max(cv.width / W, cv.height / H), dpr = cv.width / innerWidth;
+    return { x: Math.round(((e.clientX * dpr) - (cv.width - W*s)/2) / s), y: Math.round(((e.clientY * dpr) - (cv.height - H*s)/2) / s) };
+  }
+  let last = null;
+  addEventListener("pointermove", e => {
+    if (!running || !(e.buttons || e.pointerType === "touch")) { last = null; stir = null; return; }
+    const c = toCell(e);
+    if (last){ const k = 0.04; stir = { x: c.x, y: c.y, u: Math.max(-.12, Math.min(.12, (c.x - last.x) * k + U0*0.3)), v: Math.max(-.12, Math.min(.12, (c.y - last.y) * k)) }; }
+    last = c;
+  });
+  addEventListener("pointerup", () => { last = null; stir = null; });
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { if (running) setup(); else resizeCanvas(); }, 250); });
+  return {
+    start(){
+      setup(); running = true;
+      if (reduce){ for (let k = 0; k < 1500; k++) step(); draw(); running = false; return; }
+      warm = 1200;
+      loop();
+    },
+    stop(){ running = false; cancelAnimationFrame(raf); }
+  };
 })();
-(async () => {
-  try {
-    const [db, user] = await Promise.all([window.claude?.use?.("db"), window.claude?.use?.("user")]);
-    if (!db || !user) return;
-    const id = await user.id(); if (!id) return;
-    docRef = db.doc("data/users/" + id + "/nut");
-    const snap = await docRef.get();
-    if (snap.exists){
-      const d = snap.data();
-      if (Array.isArray(d.tasks)) { S.tasks = d.tasks; S.chat = Array.isArray(d.chat) ? d.chat : S.chat; render(); greet(); checkReminders(); }
-      try { localStorage.setItem(LKEY, JSON.stringify(S)); } catch {}
-      $("saved").textContent = "Saved to your account";
-    } else save();
-  } catch { docRef = null; }
+
+/* ================= photos (optional) ================= */
+if (PHOTOS.length){
+  document.body.classList.add("has-photos");
+  const box = $("photos");
+  const imgs = PHOTOS.map(src => { const i = new Image(); i.src = src; i.alt = ""; box.append(i); return i; });
+  let k = 0; imgs[0].classList.add("on");
+  if (imgs.length > 1) setInterval(() => { imgs[k].classList.remove("on"); k = (k + 1) % imgs.length; imgs[k].classList.add("on"); }, 6000);
+}
+
+Flow.start();
+
+/* ================= the five locks ================= */
+const norm = s => String(s).toLowerCase().normalize("NFKD").replace(/[^a-z0-9]/g, "");
+const LOCKS = [
+  { q: "What is Ayush's favorite reference in any situation?",
+    ok: a => a.includes("tmkoc") || (a.includes("mehta") && /(ooltah|oolta|ulta|ultah)/.test(a)),
+    hint: "Gokuldham Society. Five letters, all initials." },
+  { q: "What is Ayush's favorite car from his childhood?",
+    ok: a => a.includes("figo"),
+    hint: "A small Ford hatchback. Four letters." },
+  { q: "Who is the best, sweetest, and smartest mechanical engineering student?",
+    ok: a => a.includes("ayush"),
+    hint: "Look in a mirror." },
+  { q: "Who is Ayush most like from Brooklyn Nine-Nine?",
+    ok: a => /jake|peralta|amy|santiago/.test(a),
+    hint: "Either the detective who says “cool cool cool”, or the one with the binders. Both count." },
+  { q: "What is Ayush's favorite equation, the one he sometimes writes on tissue papers and classroom boards? (Not to flex.)",
+    ok: a => a.includes("navier") && a.includes("stoke"),
+    hint: "Two surnames joined by a hyphen. Fluids. A million-dollar prize is still waiting on it." }
+];
+const NOPE = ["Not quite. Try again.", "Nope. The lock holds.", "Close? Maybe. Wrong? Definitely.", "Hmm, that's not it.", "Wrong key. Think like Ayush."];
+let li = 0, misses = 0;
+function showLock(){
+  const L = LOCKS[li];
+  $("lockNo").textContent = `Lock ${li + 1} of ${LOCKS.length}`;
+  [...$("pips").children].forEach((p, k) => p.className = k < li ? "done" : k === li ? "now" : "");
+  $("q").textContent = L.q; $("ans").value = ""; $("hint").hidden = true; $("hint").textContent = L.hint;
+  $("hintBtn").hidden = false; misses = 0;
+  setTimeout(() => $("ans").focus({ preventScroll: true }), 50);
+}
+$("clickme").addEventListener("click", () => {
+  $("landing").hidden = true; $("caption").hidden = true; $("locks").hidden = false; showLock();
+});
+$("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
+$("ansForm").addEventListener("submit", e => {
+  e.preventDefault();
+  const a = norm($("ans").value); if (!a) return;
+  if (LOCKS[li].ok(a)){
+    li++;
+    if (li >= LOCKS.length){
+      [...$("pips").children].forEach(p => p.className = "done");
+      $("lockCard").hidden = true; $("granted").hidden = false; $("enter").focus(); return;
+    }
+    $("msg").className = "msg good"; $("msg").textContent = "Unlocked. Next one.";
+    showLock();
+  } else {
+    misses++;
+    $("msg").className = "msg bad"; $("msg").textContent = NOPE[(misses - 1) % NOPE.length];
+    if (misses >= 2){ $("hint").hidden = false; $("hintBtn").hidden = true; }
+    const c = $("lockCard"); c.classList.remove("shake"); void c.offsetWidth; c.classList.add("shake");
+    $("ans").select();
+  }
+});
+$("enter").addEventListener("click", openStage);
+function openStage(){
+  Flow.stop();
+  ["flow", "photos", "veil"].forEach(id => $(id).hidden = true);
+  $("locks").hidden = true; $("stage").hidden = false; scrollTo(0, 0);
+  Trek.init(); Trail.init();
+}
+
+/* ================= trek tracker ================= */
+const Trek = (() => {
+  const T = DATA.track, WPS = DATA.wps, TOTAL = T[T.length - 1][0];
+  const CAMPS = [
+    { n: "Iron bridge", label: "Start · Iron bridge", note: "Trailhead above Kafnu. Boots on at 7:50 am, Bhaba river roaring below." },
+    { n: "Mulling campsite", label: "Mulling", note: "First campsite, right after the forest ends and the bouldering point. Still fresh, so we kept going." },
+    { n: "Karah campsite", label: "Karah", note: "Meadow camp by the stream. Next came the bare-feet crossing and the one with the strong current." },
+    { n: "Phutsirang campsite", label: "Phutsirang", note: "Our night. 4,158 m, reached at 5:34 pm after almost ten hours on the trail. Up and moving again at 5:12 am." },
+    { n: "Pin Bhaba Summit", label: "Pin Bhaba Pass", note: "4,907 m at 8:23 am. Snow, prayer-flag wind, Kinnaur behind us and Spiti ahead." },
+    { n: "Mangruenese campsite", label: "Mangrunse", note: "First camp on the Spiti side, after the Pin river moraine and the ankle-twisting loose rocks." },
+    { n: "Bwaldar campsite", label: "Bwaldar", note: "Green meadows and a wooden bridge over the Bwaldar river. Lunch-break country." },
+    { n: "Mudh", label: "Mudh", note: "Pea fields, a temple and the end of the road. In at 4:43 pm, 49.4 km from where we started." }
+  ].map(c => Object.assign(c, WPS.find(w => w.n === c.n)));
+  const NIGHT_AT = CAMPS[3].d; // Phutsirang
+  const DAY_RANGE = { 0: [0, TOTAL], 1: [0, NIGHT_AT], 2: [NIGHT_AT, TOTAL] };
+
+  const VW = 800, PH = 170, PRH = 250;
+  const xs = T.map(p => p[2]), ys = T.map(p => p[3]);
+  const xmin = Math.min(...xs), xmax = Math.max(...xs), ymin = Math.min(...ys), ymax = Math.max(...ys);
+  const pad = 26, sx = (VW - 2*pad) / (xmax - xmin), sy = sx; // same scale both axes
+  const planH = (ymax - ymin) * sy, offY = (PH - planH) / 2;
+  const P = p => [pad + (p[2] - xmin) * sx, offY + (ymax - p[3]) * sy]; // east = down when north is right
+  const EMIN = 2300, EMAX = 5100, L = 46, R = 14, TOP = 18, BOT = 28;
+  const PX = d => L + d / TOTAL * (VW - L - R), PY = e => TOP + (EMAX - e) / (EMAX - EMIN) * (PRH - TOP - BOT);
+
+  let pos = 0, day = 0, playing = false, raf = 0, lastT = 0, inited = false;
+  const NS = "http://www.w3.org/2000/svg";
+  const el = (tag, attrs, parent) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); parent && parent.append(n); return n; };
+  const dayOf = d => d <= NIGHT_AT ? 1 : 2;
+  function pathFor(proj, from, to){
+    let s = ""; for (const p of T){ if (p[0] < from - 1e-6 || p[0] > to + 1e-6) continue; const [x, y] = proj(p); s += (s ? "L" : "M") + x.toFixed(1) + " " + y.toFixed(1); } return s;
+  }
+  const profProj = p => [PX(p[0]), PY(p[1])];
+  function at(d){
+    let lo = 0, hi = T.length - 1;
+    while (hi - lo > 1){ const m = (lo + hi) >> 1; if (T[m][0] <= d) lo = m; else hi = m; }
+    const a = T[lo], b = T[hi], t = b[0] === a[0] ? 0 : (d - a[0]) / (b[0] - a[0]);
+    return [d, a[1] + (b[1]-a[1])*t, a[2] + (b[2]-a[2])*t, a[3] + (b[3]-a[3])*t];
+  }
+  function timeAt(d){
+    let a = WPS[0], b = WPS[WPS.length - 1];
+    for (let k = 0; k < WPS.length - 1; k++) if (WPS[k].d <= d && WPS[k+1].d >= d){ a = WPS[k]; b = WPS[k+1]; break; }
+    if (a.day !== b.day) return { day: d - a.d < 0.05 ? a.day : b.day, m: d - a.d < 0.05 ? a.m : b.m };
+    const t = b.d === a.d ? 0 : (d - a.d) / (b.d - a.d);
+    return { day: a.day, m: Math.round(a.m + (b.m - a.m) * t) };
+  }
+  const hhmm = m => String(Math.floor(m/60)).padStart(2, "0") + ":" + String(m % 60).padStart(2, "0");
+  const fmt = n => Math.round(n).toLocaleString("en-IN");
+
+  // label placement on the plan view: [dy, anchor, dx] per camp
+  const LBL = [[18,"start",-4],[20,"middle",0],[-11,"middle",0],[20,"middle",0],[-12,"middle",0],[-12,"end",-2],[20,"start",2],[20,"end",4]];
+  let planProg, profProg, planDot, profDot, profLine;
+  function build(){
+    // plan view
+    const plan = $("plan");
+    el("path", { d: pathFor(P, 0, NIGHT_AT), fill: "none", stroke: "var(--day1)", "stroke-width": 2, opacity: .35, "stroke-linejoin": "round", "vector-effect": "non-scaling-stroke" }, plan);
+    el("path", { d: pathFor(P, NIGHT_AT, TOTAL), fill: "none", stroke: "var(--day2)", "stroke-width": 2, opacity: .35, "stroke-linejoin": "round", "vector-effect": "non-scaling-stroke" }, plan);
+    planProg = el("path", { fill: "none", stroke: "var(--snow)", "stroke-width": 2.6, "stroke-linejoin": "round", "stroke-linecap": "round", "vector-effect": "non-scaling-stroke" }, plan);
+    CAMPS.forEach((c, k) => {
+      const [x, y] = P(at(c.d));
+      el("circle", { cx: x, cy: y, r: 4, fill: "var(--night-2)", stroke: c.n === "Pin Bhaba Summit" ? "var(--marigold)" : "var(--snow)", "stroke-width": 1.6, "vector-effect": "non-scaling-stroke" }, plan);
+      const [dy, anchor, dx] = LBL[k];
+      const t = el("text", { x: x + dx, y: y + dy, "text-anchor": anchor, class: "pinlbl" }, plan);
+      t.textContent = c.label.replace("Start · ", "");
+    });
+    planDot = el("circle", { r: 6, fill: "var(--marigold)", stroke: "var(--night)", "stroke-width": 2 }, plan);
+
+    // profile
+    const prof = $("prof"), ax = el("g", { class: "axis" }, prof);
+    for (let e = 2500; e <= 5000; e += 500){
+      el("line", { x1: L, x2: VW - R, y1: PY(e), y2: PY(e) }, ax);
+      const t = el("text", { x: L - 6, y: PY(e) + 4, "text-anchor": "end" }, ax); t.textContent = fmt(e);
+    }
+    for (let k = 0; k <= 45; k += 5){ const t = el("text", { x: PX(k), y: PRH - 8, "text-anchor": "middle" }, ax); t.textContent = k; }
+    el("path", { d: pathFor(profProj, 0, NIGHT_AT) + `L${PX(NIGHT_AT)} ${PY(EMIN)}L${PX(0)} ${PY(EMIN)}Z`, fill: "var(--day1)", opacity: .14 }, prof);
+    el("path", { d: pathFor(profProj, NIGHT_AT, TOTAL) + `L${PX(TOTAL)} ${PY(EMIN)}L${PX(NIGHT_AT)} ${PY(EMIN)}Z`, fill: "var(--day2)", opacity: .14 }, prof);
+    el("path", { d: pathFor(profProj, 0, NIGHT_AT), fill: "none", stroke: "var(--day1)", "stroke-width": 1.6, opacity: .6, "vector-effect": "non-scaling-stroke" }, prof);
+    el("path", { d: pathFor(profProj, NIGHT_AT, TOTAL), fill: "none", stroke: "var(--day2)", "stroke-width": 1.6, opacity: .6, "vector-effect": "non-scaling-stroke" }, prof);
+    el("line", { x1: PX(NIGHT_AT), x2: PX(NIGHT_AT), y1: TOP - 6, y2: PY(EMIN), stroke: "var(--line-2)", "stroke-dasharray": "3 4", "vector-effect": "non-scaling-stroke" }, prof);
+    const nl = el("text", { x: PX(NIGHT_AT) + 6, y: TOP + 2, class: "pinlbl", style: "font-size:11px;font-weight:500" }, prof); nl.textContent = "night at Phutsirang";
+    profProg = el("path", { fill: "none", stroke: "var(--snow)", "stroke-width": 2.4, "stroke-linejoin": "round", "vector-effect": "non-scaling-stroke" }, prof);
+    profLine = el("line", { stroke: "var(--marigold)", "stroke-width": 1, "stroke-dasharray": "2 3", "vector-effect": "non-scaling-stroke" }, prof);
+    CAMPS.forEach(c => {
+      el("circle", { cx: PX(c.d), cy: PY(at(c.d)[1]), r: 3.2, fill: c.n === "Pin Bhaba Summit" ? "var(--marigold)" : "var(--snow)" }, prof);
+    });
+    const sm = CAMPS[4]; const st = el("text", { x: PX(sm.d), y: PY(sm.e) - 12, "text-anchor": "middle", class: "pinlbl" }, prof); st.textContent = "Pin Bhaba Pass · 4,907 m";
+    profDot = el("circle", { r: 5, fill: "var(--marigold)", stroke: "var(--night)", "stroke-width": 2 }, prof);
+
+    // trekkers
+    const tk = $("trekkers");
+    if (TREKKERS_SRC){ const i = new Image(); i.src = TREKKERS_SRC; i.alt = "Ayush and Aahanu"; tk.append(i); }
+    else tk.insertAdjacentHTML("beforeend", `
+      <svg class="walker" viewBox="0 0 58 54" width="58" height="54" aria-hidden="true">
+        ${hiker(17, "var(--marigold)", 0)}${hiker(39, "var(--glacier)", .15)}
+      </svg>`);
+
+    // campsite cards
+    $("sites").innerHTML = "";
+    CAMPS.forEach((c, k) => {
+      const li = document.createElement("li"); li.className = "site"; li.dataset.k = k;
+      li.innerHTML = `<button type="button"><span class="meta"><i style="background:var(--day${c.day})"></i>Day ${c.day} · ${hhmm(c.m)} · ${fmt(c.e)} m · km ${c.d.toFixed(1)}</span><h3></h3><p></p></button>`;
+      li.querySelector("h3").textContent = c.label; li.querySelector("p").textContent = c.note;
+      li.querySelector("button").addEventListener("click", () => { pause(); if (dayOf(c.d) !== day && day) setDay(0); setPos(c.d); });
+      $("sites").append(li);
+    });
+
+    // gain
+    let gain = 0; for (let k = 1; k < T.length; k++){ const de = T[k][1] - T[k-1][1]; if (de > 0) gain += de; }
+    $("fGain").textContent = fmt(Math.round(gain / 10) * 10) + " m";
+    $("fDist").textContent = TOTAL.toFixed(1) + " km";
+  }
+  function hiker(cx, color, delay){
+    return `<g transform="translate(${cx} 0)">
+      <g class="bob" style="animation-delay:${delay}s">
+        <circle cx="0" cy="12" r="4.6" fill="var(--snow)"/>
+        <rect x="-8.5" y="18" width="6" height="11" rx="2" fill="${color}" opacity=".85"/>
+        <line x1="0" y1="17" x2="0" y2="32" stroke="var(--snow)" stroke-width="3" stroke-linecap="round"/>
+        <line x1="0" y1="21" x2="7" y2="27" stroke="var(--snow)" stroke-width="2.2" stroke-linecap="round"/>
+        <line x1="7" y1="27" x2="9" y2="44" stroke="var(--mist)" stroke-width="1.2"/>
+      </g>
+      <line class="leg a" x1="0" y1="32" x2="0" y2="46" stroke="var(--snow)" stroke-width="2.8" stroke-linecap="round" style="animation-delay:${delay}s"/>
+      <line class="leg b" x1="0" y1="32" x2="0" y2="46" stroke="var(--snow)" stroke-width="2.8" stroke-linecap="round" style="animation-delay:${delay}s"/>
+    </g>`;
+  }
+  function setPos(d){
+    const [a, b] = DAY_RANGE[day];
+    pos = Math.max(a, Math.min(b, d));
+    const p = at(pos);
+    planProg.setAttribute("d", pathFor(P, 0, pos) || "M0 0");
+    profProg.setAttribute("d", pathFor(profProj, 0, pos) || "M0 0");
+    const [px, py] = P(p); planDot.setAttribute("cx", px); planDot.setAttribute("cy", py);
+    const qx = PX(pos), qy = PY(p[1]);
+    profDot.setAttribute("cx", qx); profDot.setAttribute("cy", qy);
+    profLine.setAttribute("x1", qx); profLine.setAttribute("x2", qx); profLine.setAttribute("y1", qy); profLine.setAttribute("y2", PY(EMIN));
+    const tk = $("trekkers"); tk.style.left = (qx / VW * 100) + "%"; tk.style.top = ((qy - 4) / PRH * 100) + "%";
+    $("scrub").value = Math.round((pos - a) / (b - a) * 1000);
+    // readout
+    const tm = timeAt(pos);
+    $("rTime").textContent = `${tm.day} · ${hhmm(tm.m)}`;
+    $("rDist").textContent = pos.toFixed(1) + " km";
+    $("rEle").textContent = fmt(p[1]) + " m";
+    $("rLeft").textContent = (TOTAL - pos).toFixed(1) + " km";
+    let near = WPS[0]; for (const w of WPS) if (w.d <= pos + 0.05) near = w;
+    const passed = pos - near.d;
+    $("rNow").textContent = passed < 0.25 ? (near.n === "Iron bridge" ? "Iron bridge, above Kafnu" : near.n) : `Past ${near.n.toLowerCase().startsWith("mudh") ? "Mudh" : near.n}`;
+    let here = -1; CAMPS.forEach((c, k) => { if (c.d <= pos + 0.05) here = k; });
+    [...$("sites").children].forEach((li, k) => li.classList.toggle("here", k === here));
+  }
+  function setDay(d){
+    day = d;
+    document.querySelectorAll(".tabs button").forEach(b => b.setAttribute("aria-pressed", String(+b.dataset.day === d)));
+    const [a, b] = DAY_RANGE[d]; if (pos < a || pos > b) setPos(a); else setPos(pos);
+  }
+  function frame(t){
+    if (!playing) return;
+    const dt = lastT ? Math.min(0.1, (t - lastT) / 1000) : 0; lastT = t;
+    const [a, b] = DAY_RANGE[day];
+    const speed = (b - a) / (day ? 24 : 40); // km per second of playback
+    setPos(pos + dt * speed);
+    if (pos >= b - 1e-6){ pause(); return; }
+    raf = requestAnimationFrame(frame);
+  }
+  function play(){
+    const [a, b] = DAY_RANGE[day]; if (pos >= b - 0.01) setPos(a);
+    playing = true; lastT = 0; $("trekkers").classList.add("walking");
+    $("play").textContent = "❚❚ Pause"; $("play").setAttribute("aria-label", "Pause");
+    if (reduce){ setPos(b); pause(); return; }
+    raf = requestAnimationFrame(frame);
+  }
+  function pause(){
+    playing = false; cancelAnimationFrame(raf); $("trekkers").classList.remove("walking");
+    $("play").textContent = "▶ Play"; $("play").setAttribute("aria-label", "Play the trek");
+  }
+  return {
+    init(){
+      if (inited) return; inited = true;
+      build(); setPos(0);
+      $("play").addEventListener("click", () => playing ? pause() : play());
+      $("scrub").addEventListener("input", e => { pause(); const [a, b] = DAY_RANGE[day]; setPos(a + (b - a) * e.target.value / 1000); });
+      document.querySelectorAll(".tabs button").forEach(b => b.addEventListener("click", () => { pause(); setDay(+b.dataset.day); }));
+      setTimeout(play, 700);
+      // size Nut's frame to its content when we can read it
+      const fr = $("nutFrame");
+      fr.addEventListener("load", () => {
+        try {
+          const fit = () => { const h = fr.contentDocument.documentElement.scrollHeight; if (h > 300) fr.style.height = (h + 4) + "px"; };
+          fit(); setTimeout(fit, 800); new ResizeObserver(fit).observe(fr.contentDocument.body);
+        } catch {}
+      });
+    }
+  };
 })();
+
+/* ================= the trail ================= */
+const Trail = (() => {
+  const trip = { name: "Pin Bhaba Pass", stops: [
+    { id: "kafnu", name: "Kafnu", x: 70, y: 440 },
+    { id: "mulling", name: "Mulling campsite", x: 139, y: 325 },
+    { id: "karah", name: "Karah campsite", x: 289, y: 291 },
+    { id: "phutsirang", name: "Phutsirang campsite", x: 480, y: 290 },
+    { id: "summit", name: "Pin Bhaba Summit", x: 669, y: 254, summit: true },
+    { id: "mudh", name: "Mudh", x: 830, y: 90 } ] };
+  const store = {
+    get(k){ try { return localStorage.getItem(k); } catch (e) { return null; } },
+    set(k, v){ try { localStorage.setItem(k, v); return true; } catch (e) { return false; } } };
+  const panel = $("notePanel"), note = $("panel-note"), photo = $("panel-photo"), prev = $("panel-preview"), saved = $("panel-saved");
+  let cur = null, timer, inited = false;
+  const key = (id, f) => trip.name + "_" + id + "_" + f;
+  function open(stop){
+    cur = stop.id; panel.classList.add("open"); $("panel-title").textContent = stop.name;
+    note.value = store.get(key(stop.id, "note")) || "";
+    const p = store.get(key(stop.id, "photo"));
+    if (p){ prev.src = p; prev.hidden = false; } else { prev.removeAttribute("src"); prev.hidden = true; }
+    photo.value = ""; saved.textContent = "";
+    panel.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "nearest" });
+  }
+  return {
+    init(){
+      if (inited) return; inited = true;
+      const box = $("stops");
+      trip.stops.forEach(s => {
+        const d = document.createElement("button"); d.type = "button";
+        d.className = "tstop" + (s.summit ? " summit" : ""); d.setAttribute("aria-label", s.name);
+        d.style.left = (s.x / 900 * 100) + "%"; d.style.top = (s.y / 500 * 100) + "%";
+        d.addEventListener("click", () => open(s)); box.append(d);
+        const l = document.createElement("div"); l.className = "tstop-label"; l.textContent = s.name;
+        l.style.left = (s.x / 900 * 100) + "%"; l.style.top = (s.y / 500 * 100) + "%"; box.append(l);
+      });
+      note.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(() => {
+        saved.textContent = store.set(key(cur, "note"), note.value) ? "Saved." : "Could not save in this browser."; }, 500); });
+      photo.addEventListener("change", () => {
+        const f = photo.files[0]; if (!f) return;
+        const r = new FileReader();
+        r.onload = () => { const ok = store.set(key(cur, "photo"), r.result); prev.src = r.result; prev.hidden = false;
+          saved.textContent = ok ? "Saved." : "Photo is too large to save in this browser."; };
+        r.readAsDataURL(f);
+      });
+    }
+  };
+})();
+
 </script>
 
 </body></html>
