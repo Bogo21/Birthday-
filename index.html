@@ -52,6 +52,41 @@ body.has-photos #flow{mix-blend-mode:screen;opacity:.8}
 .caption{position:fixed;z-index:2;left:max(16px,env(safe-area-inset-left,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));right:max(16px,env(safe-area-inset-right,0px));
   font-family:var(--mono);font-size:.72rem;letter-spacing:.04em;color:var(--mist);pointer-events:none;text-shadow:0 1px 6px var(--night)}
 
+
+/* ---------- landing sketch of Ayush (draws itself, then walks) ---------- */
+.sketch{width:clamp(110px,20vh,200px);aspect-ratio:200/250;max-width:100%;pointer-events:none;filter:drop-shadow(0 4px 18px rgba(11,22,33,.9))}
+.sketch svg{width:100%;height:100%;display:block;overflow:visible}
+.sketch .ink{fill:none;stroke:var(--snow);stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1;animation:ink 1.1s ease forwards}
+.sketch .wash{opacity:0;animation:wash .9s ease forwards 2.9s}
+.sketch .name{font-family:"Caveat","Segoe Print",cursive;font-size:30px;font-weight:700;fill:var(--marigold);opacity:0;animation:wash .8s ease forwards 3.2s}
+@keyframes ink{to{stroke-dashoffset:0}}
+@keyframes wash{to{opacity:1}}
+.sketch .legL,.sketch .legR,.sketch .armF{transform-box:view-box;transform-origin:100px 150px}
+.sketch .armF{transform-origin:100px 96px}
+.sketch.alive .legL{animation:stride 1s ease-in-out infinite}
+.sketch.alive .legR{animation:stride 1s ease-in-out infinite reverse}
+.sketch.alive .armF{animation:pole 1s ease-in-out infinite}
+.sketch.alive .torso{animation:sbob .5s ease-in-out infinite alternate}
+@keyframes sbob{to{transform:translateY(-3px)}}
+@keyframes stride{0%,100%{transform:rotate(16deg)}50%{transform:rotate(-16deg)}}
+@keyframes pole{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(10deg)}}
+/* small pair strolling along the bottom */
+.stroll{position:fixed;z-index:2;left:0;right:0;bottom:calc(46px + env(safe-area-inset-bottom,0px));height:84px;pointer-events:none;overflow:hidden}
+@media (max-width:560px){.stroll{bottom:calc(64px + env(safe-area-inset-bottom,0px))}}
+.stroll .pair{position:absolute;bottom:0;left:0;width:76px;height:64px;animation:cross 38s linear infinite}
+.stroll .pair svg{width:100%;height:100%;overflow:visible}
+.stroll .tag{position:absolute;left:50%;bottom:100%;transform:translateX(-50%);white-space:nowrap;font-size:.66rem;font-weight:700;background:var(--snow);color:var(--night);border-radius:6px;padding:1px 6px}
+.stroll .leg{transform-box:fill-box;transform-origin:50% 0}
+.stroll .leg.a{animation:swing .6s ease-in-out infinite}
+.stroll .leg.b{animation:swing .6s ease-in-out infinite reverse}
+.stroll .bob{animation:bob .3s ease-in-out infinite alternate}
+@keyframes cross{from{transform:translateX(-90px)}to{transform:translateX(calc(100vw + 20px))}}
+@media (prefers-reduced-motion:reduce){
+  .sketch .ink{animation:none;stroke-dashoffset:0}.sketch .wash,.sketch .name{animation:none;opacity:1}
+  .sketch.alive .legL,.sketch.alive .legR,.sketch.alive .armF,.sketch.alive .torso{animation:none}
+  .stroll .pair{animation:none;left:16px}.stroll .leg,.stroll .bob{animation:none}
+}
+
 /* ---------- locks ---------- */
 .lock{width:min(520px,100%);background:rgba(17,33,48,.86);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line-2);border-radius:18px;padding:28px 26px 24px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
 .lock .eyebrow{font-family:var(--mono);font-size:.75rem;letter-spacing:.14em;text-transform:uppercase;color:var(--mist);display:flex;justify-content:space-between;gap:12px}
@@ -209,6 +244,27 @@ body.has-photos #flow{mix-blend-mode:screen;opacity:.8}
 <!-- 1 · landing -->
 <section class="screen" id="landing">
   <div class="hello">
+    <div class="sketch" id="sketch" aria-hidden="true">
+      <svg viewBox="0 0 200 250">
+        <path class="ink" pathLength="1" style="animation-delay:2.4s;stroke:var(--mist);stroke-width:2" d="M18 222 C60 214 90 226 130 218 S178 216 192 220"/>
+        <g class="legL"><path class="ink" pathLength="1" style="animation-delay:1.6s" d="M100 150 L92 186 L96 218 L84 220"/></g>
+        <g class="legR"><path class="ink" pathLength="1" style="animation-delay:1.75s" d="M100 150 L108 186 L106 218 L118 220"/></g>
+        <g class="torso">
+          <rect class="wash" x="62" y="88" width="26" height="46" rx="8" fill="var(--marigold)"/>
+          <path class="ink" pathLength="1" style="animation-delay:1.2s" d="M66 92 C60 100 60 126 66 134 L86 134 C90 126 90 100 86 92 Z"/>
+          <path class="ink" pathLength="1" style="animation-delay:0.55s" d="M100 80 C96 100 96 128 100 150"/>
+          <path class="ink" pathLength="1" style="animation-delay:1.0s" d="M100 96 L84 92 M100 96 L86 132"/>
+          <circle class="wash" cx="100" cy="52" r="21" fill="rgba(233,238,241,.12)"/>
+          <path class="ink" pathLength="1" style="animation-delay:0s" d="M100 31 A21 21 0 1 1 99.9 31"/>
+          <path class="wash" d="M79 46 C82 24 118 22 122 44 L131 46 L80 48 Z" fill="#ff69b4"/>
+          <path class="ink" pathLength="1" style="animation-delay:0.35s" d="M79 46 C82 24 118 22 122 44 L131 46" style="animation-delay:.35s"/>
+          <path class="ink" pathLength="1" style="animation-delay:0.7s" d="M91 56 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M103 56 a4 4 0 1 0 8 0 a4 4 0 1 0 -8 0 M99 56 L103 56"/>
+          <path class="ink" pathLength="1" style="animation-delay:0.85s" d="M94 66 Q101 72 108 66"/>
+          <g class="armF"><path class="ink" pathLength="1" style="animation-delay:1.3s" d="M100 96 L118 116 L128 108 M126 100 L134 222"/></g>
+        </g>
+        <text class="name" x="150" y="62">Ayush</text>
+      </svg>
+    </div>
     <h1><span style="animation-delay:.15s">Happy</span> <span style="animation-delay:.4s">birthday,</span><br><span style="animation-delay:.75s"><em>Ayush</em></span></h1>
     <div class="countdown" id="countdown" hidden>
       <span class="label">The locks open at midnight</span>
@@ -217,6 +273,14 @@ body.has-photos #flow{mix-blend-mode:screen;opacity:.8}
     <button class="clickme" id="clickme" type="button">Click me</button>
   </div>
 </section>
+<div class="stroll" id="stroll" aria-hidden="true">
+  <div class="pair"><span class="tag">Ayush &amp; Aahanu</span>
+    <svg viewBox="0 0 58 54">
+      <g transform="translate(17 0)"><g class="bob"><circle cx="0" cy="12" r="4.6" fill="var(--snow)"/><rect x="-8.5" y="18" width="6" height="11" rx="2" fill="var(--marigold)" opacity=".9"/><line x1="0" y1="17" x2="0" y2="32" stroke="var(--snow)" stroke-width="3" stroke-linecap="round"/><line x1="0" y1="21" x2="7" y2="27" stroke="var(--snow)" stroke-width="2.2" stroke-linecap="round"/><line x1="7" y1="27" x2="9" y2="44" stroke="var(--mist)" stroke-width="1.2"/></g><line class="leg a" x1="0" y1="32" x2="0" y2="46" stroke="var(--snow)" stroke-width="2.8" stroke-linecap="round"/><line class="leg b" x1="0" y1="32" x2="0" y2="46" stroke="var(--snow)" stroke-width="2.8" stroke-linecap="round"/></g>
+      <g transform="translate(39 0)"><g class="bob" style="animation-delay:.15s"><circle cx="0" cy="12" r="4.6" fill="var(--snow)"/><rect x="-8.5" y="18" width="6" height="11" rx="2" fill="#ff69b4" opacity=".9"/><line x1="0" y1="17" x2="0" y2="32" stroke="var(--snow)" stroke-width="3" stroke-linecap="round"/><line x1="0" y1="21" x2="7" y2="27" stroke="var(--snow)" stroke-width="2.2" stroke-linecap="round"/><line x1="7" y1="27" x2="9" y2="44" stroke="var(--mist)" stroke-width="1.2"/></g><line class="leg a" x1="0" y1="32" x2="0" y2="46" stroke="var(--snow)" stroke-width="2.8" stroke-linecap="round" style="animation-delay:.15s"/><line class="leg b" x1="0" y1="32" x2="0" y2="46" stroke="var(--snow)" stroke-width="2.8" stroke-linecap="round" style="animation-delay:.15s"/></g>
+    </svg>
+  </div>
+</div>
 <p class="caption" id="caption">Live fluid flow · lattice Boltzmann, Re ≈ 100 · drag anywhere to stir it</p>
 
 <!-- 2 · five locks -->
@@ -605,6 +669,7 @@ if (PHOTOS.length){
 }
 
 Flow.start();
+setTimeout(() => $("sketch").classList.add("alive"), 3300);
 
 /* ================= the five locks ================= */
 const norm = s => String(s).toLowerCase().normalize("NFKD").replace(/[^a-z0-9]/g, "");
@@ -636,7 +701,7 @@ function showLock(){
   setTimeout(() => $("ans").focus({ preventScroll: true }), 50);
 }
 $("clickme").addEventListener("click", () => {
-  $("landing").hidden = true; $("caption").hidden = true; $("locks").hidden = false; showLock();
+  $("landing").hidden = true; $("caption").hidden = true; $("stroll").hidden = true; $("locks").hidden = false; showLock();
 });
 $("hintBtn").addEventListener("click", () => { $("hint").hidden = false; $("hintBtn").hidden = true; });
 $("ansForm").addEventListener("submit", e => {
